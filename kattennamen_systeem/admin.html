@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KattenNamen - Admin</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f2f2;
+        }
+
+        header {
+            background: #4CAF50;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            flex: 1;
+        }
+
+        nav a {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background: #43a047;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .card h1,
+        .card h2 {
+            margin-top: 0;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #43a047;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 14px;
+            border-radius: 6px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            min-height: 24px;
+        }
+
+        .feedback.error {
+            color: #b71c1c;
+            background: #fff3f3;
+            border-color: #f5c2c2;
+        }
+
+        .feedback.success {
+            color: #1b5e20;
+            background: #f1f8f2;
+            border-color: #b8d9bf;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 700px) {
+            nav ul {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Andere gebruiker kiezen</a></li>
+                <li><a href="invoeren-individueel.html">Invoeren individuele namen</a></li>
+                <li><a href="voting-individueel.html">Voting individuele namen</a></li>
+                <li><a href="tussenstand.html">Tussenstand</a></li>
+                <li><a href="koppelen-duo.html">Koppelen duo namen</a></li>
+                <li><a href="voting-duo.html">Voting duo namen</a></li>
+                <li><a href="resultaten.html">Resultaten</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+            <h1>Admin</h1>
+            <p>Hier kunnen de resultaten worden samengevoegd en gecontroleerd of alle gebruikers op alle namen en duo's hebben gestemd.</p>
+
+            <div class="actions">
+                <button onclick="combineCatScores()">Combine scores catnames</button>
+                <button onclick="checkCatVotes()">Check all users scored all catnames</button>
+                <button onclick="combineDuoScores()">Combine scores duonames</button>
+                <button onclick="checkDuoVotes()">Check all users scored all duonames</button>
+            </div>
+
+            <div id="feedback" class="feedback">Feedback verschijnt hier.</div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">Controle overzicht</h2>
+            <div id="check-results"></div>
+        </div>
+    </main>
+
+    <script>
+        const feedback = document.getElementById("feedback");
+        const checkResults = document.getElementById("check-results");
+
+        const userId = Number(localStorage.getItem("user_id"));
+
+        if (userId !== 1) {
+            location.href = "index.html";
+        }
+
+        function setFeedback(message, type = "success") {
+            feedback.className = "feedback " + type;
+            feedback.innerText = message;
+        }
+
+        async function combineCatScores() {
+            setFeedback("Bezig met samenvoegen...");
+
+            const response = await fetch("api/admin_combine_cat_scores.php");
+            const result = await response.json();
+
+            if (result.success) {
+                setFeedback(result.message, "success");
+            } else {
+                setFeedback(result.message, "error");
+            }
+        }
+
+        async function checkCatVotes() {
+            setFeedback("Controleer stemmen...");
+
+            const response = await fetch("api/admin_check_cat_votes.php");
+            const result = await response.json();
+
+            if (result.all_complete) {
+                setFeedback(result.message, "success");
+                checkResults.innerHTML = "<p>Alle gebruikers hebben gestemd op alle kattennamen.</p>";
+            } else {
+                setFeedback(result.message, "error");
+                checkResults.innerHTML = "<ul>" + result.missing.map(item => {
+                    return "<li><strong>" + item.name + "</strong> - nog niet gestemd door: " + item.missing_users.join(", ") + "</li>";
+                }).join("") + "</ul>";
+            }
+        }
+
+        async function combineDuoScores() {
+            setFeedback("Bezig met samenvoegen van duo-resultaten...");
+
+            const response = await fetch("api/admin_combine_duo_scores.php");
+            const result = await response.json();
+
+            if (result.success) {
+                setFeedback(result.message, "success");
+            } else {
+                setFeedback(result.message, "error");
+            }
+        }
+
+        async function checkDuoVotes() {
+            setFeedback("Controleer duo-stemmen...");
+
+            const response = await fetch("api/admin_check_duo_votes.php");
+            const result = await response.json();
+
+            if (result.all_complete) {
+                setFeedback(result.message, "success");
+                checkResults.innerHTML = "<p>Alle gebruikers hebben gestemd op alle duo's.</p>";
+            } else {
+                setFeedback(result.message, "error");
+                checkResults.innerHTML = "<ul>" + result.missing.map(item => {
+                    return "<li><strong>" + item.name + "</strong> - nog niet gestemd door: " + item.missing_users.join(", ") + "</li>";
+                }).join("") + "</ul>";
+            }
+        }
+    </script>
+</body>
+</html>

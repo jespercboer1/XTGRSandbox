@@ -1,0 +1,167 @@
+# Uitleg database kattennamen-systeem
+
+## Overzicht
+
+Deze database ondersteunt een systeem waarmee vier gebruikers gezamenlijk twee katten een naam geven. Het proces verloopt in meerdere stappen:
+
+1. Gebruikers voeren individuele kattennamen in.
+2. Alle gebruikers geven elke naam een score van 1 t/m 5.
+3. De tussenstand van de individuele namen wordt opgeslagen.
+4. Er wordt gekozen welke namen doorgaan naar de volgende ronde. (Als een naam door een gebruiker een 1 krijgt valt die naam af.)
+5. Van de geselecteerde namen worden duo's gemaakt.
+6. Alle gebruikers geven elk duo een score van 1 t/m 5.
+7. De eindstand van de duo's wordt opgeslagen.
+
+De database bewaart zowel de originele stemmen als de berekende resultaten. Hierdoor blijven de oorspronkelijke gegevens altijd behouden.
+
+---
+
+# Tabel: users
+
+Deze tabel bevat alle gebruikers van het systeem.
+
+Iedere gebruiker bestaat altijd al in de database. De enige gegevens die later worden toegevoegd zijn de persoonlijke passcode en het moment waarop deze is aangemaakt.
+
+## Velden
+
+* **id** – Unieke gebruiker-ID.
+* **username** – Naam van de gebruiker.
+* **passcode** – Persoonlijke 5-cijferige toegangscode.
+* **passcode_created_at** – Datum en tijd waarop de passcode is ingesteld.
+
+---
+
+# Tabel: cat_names
+
+Deze tabel bevat alle individuele kattennamen die zijn ingezonden.
+
+Elke rij stelt één naam voor.
+
+## Velden
+
+* **id** – Unieke ID van de naam.
+* **name** – De ingevoerde kattennaam.
+* **submitted_by** – Verwijzing naar de gebruiker die de naam heeft toegevoegd.
+
+---
+
+# Tabel: cat_name_votes
+
+Hier worden alle stemmen op de individuele kattennamen opgeslagen.
+
+Iedere gebruiker kan per naam precies één stem uitbrengen.
+
+## Velden
+
+* **user_id** – Wie heeft gestemd.
+* **cat_name_id** – Op welke naam is gestemd.
+* **rating** – Score van 1 t/m 5.
+
+Deze tabel bevat de originele stemgegevens en wordt nooit aangepast nadat een stem is uitgebracht.
+
+---
+
+# Tabel: cat_name_results
+
+Deze tabel bevat de berekende tussenstand van de individuele namen.
+
+Wanneer de stemronde is afgelopen worden de scores uit `cat_name_votes` samengevat en hier opgeslagen.
+
+Per naam worden zowel de individuele scores als het gemiddelde bewaard.
+
+## Velden
+
+* **cat_name_id** – Naar welke naam het resultaat verwijst.
+* **jesper_score**
+* **elianne_score**
+* **carin_score**
+* **arjan_score**
+* **average_score** – Gemiddelde van de vier scores.
+* **calculated_at** – Moment waarop de tussenstand is berekend.
+
+Deze tabel is een snapshot van de uitslag van ronde 1.
+
+---
+
+# Tabel: selected_cat_names
+
+Deze tabel bepaalt welke individuele namen doorgaan naar de tweede ronde.
+
+Hier worden alleen de ID's opgeslagen van de geselecteerde namen.
+
+## Velden
+
+* **cat_name_id** – De geselecteerde naam.
+* **selected_at** – Wanneer de selectie is gemaakt.
+
+De overige informatie over de naam blijft gewoon in `cat_names` staan.
+
+---
+
+# Tabel: duo_names
+
+In deze tabel worden combinaties van twee geselecteerde kattennamen opgeslagen.
+
+Iedere rij stelt één mogelijk duo voor.
+
+## Velden
+
+* **cat_name_1** – Eerste naam van het duo.
+* **cat_name_2** – Tweede naam van het duo.
+* **created_by** – Welke gebruiker het duo heeft gemaakt.
+
+Voorbeeld:
+
+* Cosmo + Nova
+* Pixel + Lumo
+
+---
+
+# Tabel: duo_name_votes
+
+Hier worden alle stemmen op de duo's opgeslagen.
+
+Iedere gebruiker kan elk duo precies één keer beoordelen.
+
+## Velden
+
+* **user_id** – Wie heeft gestemd.
+* **duo_name_id** – Op welk duo is gestemd.
+* **rating** – Score van 1 t/m 5.
+
+Ook deze tabel bevat uitsluitend de originele stemmen.
+
+---
+
+# Tabel: duo_name_results
+
+Deze tabel bevat de definitieve eindstand van de duo's.
+
+Wanneer alle stemmen zijn uitgebracht worden de individuele scores en het gemiddelde hierin opgeslagen.
+
+## Velden
+
+* **duo_name_id**
+* **jesper_score**
+* **elianne_score**
+* **carin_score**
+* **arjan_score**
+* **average_score**
+* **calculated_at**
+
+Deze tabel vormt de uiteindelijke uitslag van het naamgevingsproces.
+
+---
+
+# Procesoverzicht
+
+1. De vier gebruikers bestaan al in de database (`users`).
+2. Gebruikers voegen namen toe (`cat_names`).
+3. Iedereen stemt op alle namen (`cat_name_votes`).
+4. De tussenstand wordt berekend (`cat_name_results`).
+5. De gekozen namen worden gemarkeerd (`selected_cat_names`).
+6. Van deze namen worden duo's gemaakt (`duo_names`).
+7. Iedereen stemt op de duo's (`duo_name_votes`).
+8. De eindstand wordt opgeslagen (`duo_name_results`).
+
+Hierdoor blijven zowel de originele stemmen als de berekende resultaten bewaard en is op elk moment terug te zien hoe de uiteindelijke keuze tot stand is gekomen.

@@ -1,0 +1,14 @@
+# zet mod_rewrite aan
+RewriteEngine On
+
+# 1) Redirect: requests die wél .html in de url hebben -> verwijder .html (301)
+#    - voorkomt redirect-loops door te checken op THE_REQUEST
+RewriteCond %{THE_REQUEST} \s/([^\s?]*)\.html[^\s]* [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# 2) Intern doorverwijzen: extensionless URL's worden intern naar .html vertaald
+#    - alleen als er geen echt bestand/dir bestaat en er wel een .html-bestand bestaat
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*?)/?$ $1.html [L]

@@ -1,0 +1,30 @@
+27/11/2025
+- added grill workstation with working grill spots to grill patties
+- added grilled patties variable
+- made check so you have to have patties in stock to grill patties
+- added progress meters to grill to see when the patties are done
+
+26/11/2025
+- added more items to the storage and shop
+- added a bit of css to the orders to display them horizantaly and in a nice block
+- added overflow protection to the orders
+- removed reset button because reloading the page does the same for now
+- hidden the give money button
+- added cheese slices to shop and orders
+
+25/11/2025
+- added storage to store bought supplies
+- added shop to bus supplies
+- added money to buy from shop
+- fixed reset button
+- added separate file for values
+- added give money button to give $100 for testing
+
+24/11/2025
+- added clock that counts as the day progresses
+- added orders that you recieve between 1-3 seconds when the clock starts, until the clock says 22:00
+- added start day (open restaurant) button to start the clock
+- added reset button to reset the game
+- added pending order hand to store taken orders
+- added take order button for each order
+- added drink, dessert, burger: bun, patty, letuce, ketchup values to orders

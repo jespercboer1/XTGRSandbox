@@ -1,0 +1,70 @@
+/* Menu overlay screen styles */
+.menu_overlay_container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.menu_overlay_screen {
+    background-color: #222222;
+    border-radius: 8px;
+    width: min(1200px, 100%);
+    max-height: 80vh;
+    color: #F6F6F6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu_overlay_header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+}
+
+.close_menu_overlay {
+    position: absolute;
+    height: 57px;
+    width: 57px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 10px;
+    top: 0px;
+    color: #F6F6F6;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+.close_menu_overlay:hover {
+    background-color: #df0000;
+    cursor: pointer;
+}
+
+/* Content styles */
+.menu_overlay_content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu_overlay_content li {
+    margin-bottom: 3px;
+}
+
+/* save content styles */
+.save_container {
+    display: flex;
+    gap: 20px;
+}

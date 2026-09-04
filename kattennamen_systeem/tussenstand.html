@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KattenNamen - Tussenstand</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f2f2;
+        }
+
+        header {
+            background: #4CAF50;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            flex: 1;
+        }
+
+        nav a {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background: #43a047;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .card h1,
+        .card h2 {
+            margin-top: 0;
+        }
+
+        .leaderboard {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .item {
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .item.dropped {
+            border-color: #dc2626;
+            background: #fff5f5;
+        }
+
+        .rank {
+            font-weight: bold;
+            font-size: 20px;
+            margin-left: 8px;
+            color: #4CAF50;
+        }
+
+        .item.dropped .rank,
+        .item.dropped .score,
+        .item.dropped .name {
+            color: #b91c1c;
+        }
+
+        .name {
+            font-size: 18px;
+        }
+
+        .score {
+            font-weight: bold;
+        }
+
+        .subscores {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            .item {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Andere gebruiker kiezen</a></li>
+                <li><a href="invoeren-individueel.html">Invoeren individuele namen</a></li>
+                <li><a href="voting-individueel.html">Voting individuele namen</a></li>
+                <li><a href="tussenstand.html">Tussenstand</a></li>
+                <li><a href="koppelen-duo.html">Koppelen duo namen</a></li>
+                <li><a href="voting-duo.html">Voting duo namen</a></li>
+                <li><a href="resultaten.html">Resultaten</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+            <h1>Tussenstand individuele kattennamen</h1>
+            <div id="leaderboard" class="leaderboard"></div>
+        </div>
+    </main>
+
+<script>
+    async function loadResults() {
+        try {
+            const response = await fetch("api/get_cat_name_results.php");
+            const results = await response.json();
+
+            const list = document.getElementById("leaderboard");
+            list.innerHTML = "";
+
+            if (results.length === 0) {
+                list.innerHTML = '<p class="muted">Er zijn nog geen resultaten beschikbaar.</p>';
+                return;
+            }
+
+            // Eerst actieve namen, daarna afgevallen namen.
+            // Binnen beide groepen: hoogste gemiddelde score eerst.
+            results.sort((a, b) => {
+                const aDropped = Number(a.is_selected) === 0;
+                const bDropped = Number(b.is_selected) === 0;
+
+                // Afgevallen namen altijd onderaan
+                if (aDropped !== bDropped) {
+                    return aDropped ? 1 : -1;
+                }
+
+                // Hoogste gemiddelde score eerst
+                return Number(b.average_score) - Number(a.average_score);
+            });
+
+            results.forEach((item, index) => {
+                const isDropped = Number(item.is_selected) === 0;
+
+                // Hoofdrij
+                const row = document.createElement("div");
+                row.className = "item" + (isDropped ? " dropped" : "");
+
+                // Rangnummer
+                const rank = document.createElement("div");
+                rank.className = "rank";
+                rank.innerText = index + 1;
+
+                // Naam + individuele scores
+                const content = document.createElement("div");
+                content.className = "name";
+                content.innerText = item.name;
+
+                const subscores = document.createElement("div");
+                subscores.className = "subscores";
+
+                subscores.innerHTML = [
+                    "Jesper: " + (item.jesper_score ?? "-"),
+                    "Elianne: " + (item.elianne_score ?? "-"),
+                    "Carin: " + (item.carin_score ?? "-"),
+                    "Arjan: " + (item.arjan_score ?? "-")
+                ].join(" | ");
+
+                content.appendChild(subscores);
+
+                // Gemiddelde score
+                const score = document.createElement("div");
+                score.className = "score";
+                score.innerText = "Gemiddelde: " + item.average_score;
+
+                // Alles samenvoegen
+                row.appendChild(rank);
+                row.appendChild(content);
+                row.appendChild(score);
+
+                list.appendChild(row);
+            });
+
+        } catch (error) {
+            console.error("Fout bij laden van resultaten:", error);
+
+            const list = document.getElementById("leaderboard");
+            list.innerHTML = "<p>Er is een fout opgetreden bij het laden van de resultaten.</p>";
+        }
+    }
+
+    loadResults();
+</script>
+
+</body>
+</html>

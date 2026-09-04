@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RNG Dice roller</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Settings rechtsboven -->
+  <div id="menuButton" class="menu">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </div>
+
+  <!-- Settings menu -->
+  <div class="menu-content" id="menuContent">
+    <button id="saveButton">💾 Save Game</button>
+    <button id="statsButton">📊 Stats</button>
+    <button id="achievmentsButton">🏆 Achievements</button>
+    <button id="settingsButton">⚙️ Settings</button>
+  </div>
+
+  <!-- Hoofd inhoud -->
+  <h1 id="gameTitle">🎲 RNG Dice roller</h1>
+
+  <div class="buttons">
+    <button id="rollButton">
+      <span id="rollText">Roll Dice</span>
+    </button>
+    <div id="rollCooldownContainer">
+      <div id="rollCooldown"></div>
+    </div>
+    <button id="upgradeButton">⚙️ Global Upgrades</button>
+  </div>
+
+  <div class="points">
+    <div class="points-text"> 
+      Total points: <h3><span id="points">0</span></h3>
+    </div>
+  </div>
+
+  <div class="score">
+    Last roll: <span id="lastRoll">0</span>p
+  </div>
+  
+  <div class="bottom-container">
+    <div class="dice-container" id="diceContainer"></div>
+    <div class="global-multiplier" id="globalMultiplier">X1</div>
+  </div>
+
+    <!-- Upgrade menu links -->
+  <div class="upgrade-panel" id="upgradePanel">
+    <div class="upgrade-header">
+      <h3 id="upgradeTitle">Upgrades</h3>
+      <button id="closeUpgrade">✖</button>
+    </div>
+    <div id="upgradeContent"></div>
+  </div>
+
+  <div class="overlay-menu-container" id="overlayMenu">
+    <div class="overlay-menu">
+      <div class="overlay-menu-header">
+        <h3 id="overlayMenuTitle"></h3>
+        <button id="closeOverlayMenu">✖</button>
+      </div>
+      <div id="overlayMenuContent"></div>
+    </div>
+  </div>
+
+  <div class="button-clickme" id="ClickMeText">Click me! →</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

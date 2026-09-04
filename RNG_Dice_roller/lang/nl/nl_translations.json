@@ -1,0 +1,39 @@
+{
+  "game_title": "🎲 RNG Dobbelstenen Gooier",
+  "roll_button": "Gooi Dobbelstenen",
+  "save_button": "💾 Spel Opslaan",
+  "stats_button": "📊 Statistieken",
+  "achievements_button": "🏆 Prestaties",
+  "settings_button": "⚙️ Instellingen",
+
+  "global_upgrades": "⚙️ Globale Upgrades",
+  "total_points": "Totale Punten",
+  "last_roll": "Laatste Worp",
+
+  "upgrade_menu_title": "Upgrades",
+  "dice_upgrade_menu_title": "Upgrades Dobbelsteen",
+  "overlay_stats_title": "Statistieken",
+  "overlay_settings_title": "Instellingen",
+  "overlay_achievements_title": "Prestaties",
+
+  "overlay_stats_dice": "Aantal Dobbelstenen",
+  "overlay_stats_total": "Totaal Verdiend",
+  "reset_button": "♻️ Spel Resetten",
+  "reset_confirm": "Weet je zeker dat je het spel wilt resetten? Dit verwijdert alle voortgang en prestaties!",
+
+  "upgrade_extra_dice": "Extra Dobbelsteen",
+  "upgrade_global_mult": "Maximale Globale Vermenigvuldiger",
+  "upgrade_add_dice": "+1 Dobbelsteen - Prijs:",
+  "upgrade_add_mult": "+1 Max Vermenigvuldiger - Prijs:",
+
+  "upgrade_multiplier": "Vermenigvuldiger",
+  "upgrade_min_value": "Minimumwaarde",
+  "upgrade_max_value": "Maximumwaarde",
+  "upgrade_multiplier_button": "Upgrade (+0.1×) - Prijs:",
+  "upgrade_min_button": "Upgrade (+1 min) - Prijs:",
+  "upgrade_max_button": "Upgrade (+1 max) - Prijs:",
+
+  "achievement_unlocked": "✅ Ontgrendeld",
+  "achievement_locked": "🔒 Vergrendeld",
+  "achievement_popup_prefix": "🏆"
+}

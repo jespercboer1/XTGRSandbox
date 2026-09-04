@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repair Rampage</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/game.css">
+    <link rel="stylesheet" href="./css/menuOverlay.css">
+    <link rel="stylesheet" href="./css/colorClasses.css">
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+</head>
+<body>
+    <div class="container">
+        <div id="menu" class="menu_container">
+            <div class="menu_title"><h1>Repair Rampage</h1></div>
+            <div class="devider"></div>
+            <div id="stats" class="stats_container">The stats content has failed to load. Please press ctrl + f5 to reload.</div>
+            <div class="devider"></div>
+            <div id="shop_inventory" class="menu_button">
+                    <span class="menu_btn_icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M4 6h16v2H4V6zm1 3h14v11H5V9zm2 2v2h2v-2H7zm0 4v2h2v-2H7zm4-4v2h2v-2h-2zm0 4v2h2v-2h-2zm4-4v2h2v-2h-2zm0 4v2h2v-2h-2z"/>
+                        </svg>
+                    </span>
+                    <span class="menu_btn_text">Shop Inventory</span>
+                </div>
+                <div id="personal_inventory" class="menu_button">
+                    <span class="menu_btn_icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4 0-7 3-7 7h14c0-4-3-7-7-7z"/>
+                        </svg>
+                    </span>
+                    <span class="menu_btn_text">Personal Inventory</span>
+                </div>
+            <div class="devider"></div>
+            
+            <div id="options_container" class="options_container">
+                <div id="help_menu" class="menu_button">
+                    <span class="menu_btn_icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor"
+                                d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 17h-2v-2h2v2zm2.1-7.75l-.9.92C13.45 13 13 13.5 13 15h-2v-.5c0-1 .45-1.75 1.17-2.47l1.24-1.26a2 2 0 10-3.41-1.41H8a4 4 0 117.1 2.38z"/>
+                        </svg>
+                    </span>
+                    <span class="menu_btn_text">Help!</span>
+                </div>
+                <div id="save_game" class="menu_button">
+                    <span class="menu_btn_icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zM12 19a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM6 5h9v4H6V5z"/>
+                        </svg>
+                    </span>
+                    <span class="menu_btn_text">Save Game</span>
+                </div>
+                <div id="settings_menu" class="menu_button">
+                    <span class="menu_btn_icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M19.14 12.94a7.49 7.49 0 0 0 .05-.94 7.49 7.49 0 0 0-.05-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.28 7.28 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 13.9 2h-3.8a.5.5 0 0 0-.49.42l-.36 2.54c-.58.23-1.12.54-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.48a.5.5 0 0 0 .12.64l2.03 1.58c-.03.31-.05.63-.05.94s.02.63.05.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32a.5.5 0 0 0 .6.22l2.39-.96c.51.4 1.05.71 1.63.94l.36 2.54a.5.5 0 0 0 .49.42h3.8a.5.5 0 0 0 .49-.42l.36-2.54c.58-.23 1.12-.54 1.63-.94l2.39.96a.5.5 0 0 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5z"/>
+                        </svg>
+                    </span>
+                    <span class="menu_btn_text">Settings</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="game" class="game_container">The game content has failed to load. Please press ctrl + f5 to reload.</div>
+    </div>
+
+    <div id="menu_overlay" class="menu_overlay_container">
+        <div id="menu_overlay_screen" class="menu_overlay_screen">
+            <div id="menu_overlay_header" class="menu_overlay_header">
+                <h1 id="menu_overlay_title">Title</h1>
+                <div id="close_menu_overlay" class="close_menu_overlay">
+                    <svg viewBox="0 0 24 24" width="37" height="37">
+                        <path fill="currentColor"
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="devider"></div>
+            <div id="menu_overlay_content" class="menu_overlay_content">Resources failed to load. Please press ctrl + f5 to reload.</div>
+        </div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🚘 Ultimate Car Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="top-row">
+    <div class="top-left">
+      <p>
+        <span id="money">$0</span>
+        <span id="moneyPerSecond">(+0/sec)</span>
+      </p>
+    </div>
+    <div  class="top-middle">
+      <h1>🚘 Ultimate Car RNG!!! 🚘</h1>
+    </div>
+    <div class="top-right" id="settings-button" onclick="openSettings()">
+      <img src="images/UI/Settings.png">
+    </div>
+  </div>
+  
+  <div class="middle-row">
+    <div class="flex-row">
+      <div class="section">
+        <div class="section-left">
+          <h2>Car Generator</h2>
+          <button class="button" id="carBtn" onclick="generateCar()">Generate Car</button>
+          <button class="button red" id="carBtn2">Already Generated</button>
+        </div>
+        <div class="section-right">
+          <div class="section-car" id="carBackground">
+            <div class="section-car-upper" id="carBackgroundUpper">
+              <img id="carImage" src="" alt="Car">
+            </div>
+            <p id="carInfo"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-left">
+          <h2>Rarity Generator</h2>
+          <button class="button" id="rarityBtn" onclick="generateRarity()">Generate Rarity</button>
+          <button class="button red" id="rarityBtn2">Already Generated</button>
+        </div>
+        <div class="section-right">
+          <div class="section-rarity" id="rarityBackground">
+            <div class="section-rarity-upper" id="rarityBackgroundUpper">
+              <p id="rarityInfo"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-left">
+          <h2>Multiplier Generator</h2>
+          <button class="button" id="multiplierBtn" onclick="generateMultiplier()">Generate Multiplier</button>
+          <button class="button red" id="multiplierBtn2">Already Generated</button>
+        </div>
+        <div class="section-right">
+          <div class="section-multiplier" id="multiplierBackground">
+            <p id="multiplierInfo"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="independent-section">
+      <h2>📊 Result</h2>
+      <button class="button" id="combineBtn" onclick="combine()" disabled>Combine</button>
+      <p id="totalValueInfo">Total Car Value: $0</p>
+      <p id="sellValueInfo">Sell Car Value: $0</p>
+      <button class="button" id="keepBtn" onclick="keepCar()" disabled>Keep Car</button>
+      <button class="button red" id="sellBtn" onclick="sellCar()" disabled>Sell Car</button>
+    </div>
+  </div>
+
+  <div id="inventoryView">
+    <div class="independent-section">
+      <h2>⚡ Activated Cars</h2>
+      <ul id="activatedList"></ul>
+    </div>
+    <div class="independent-section">
+      <div class="inventory-top-container">
+        <h2>📦 Your Inventory</h2>
+        <div class="sort-container">
+          <label class="sort-label" for="sortSelect">Sort by:</label>
+          <select class="sort-select" id="sortSelect" onchange="updateInventoryUI()">
+            <option value="value-desc">Value (High to Low)</option>
+            <option value="value-asc">Value (Low to High)</option>
+            <option value="name-asc">Car Name (A-Z)</option>
+            <option value="name-desc">Car Name (Z-A)</option>
+            <option value="rarity-asc">Rarity (Common → Legendary)</option>
+            <option value="rarity-desc">Rarity (Legendary → Common)</option>
+            <option value="basevalue-asc">Base Value (Low to High)</option>
+            <option value="basevalue-desc">Base Value (High to Low)</option>
+          </select>
+        </div>
+      </div>
+      <ul id="inventoryList"></ul>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div class="bottom-section active-outline" id="homeScreen" onclick="clickHomeScreen()">
+      <img src="images/UI/Home.png">
+    </div>
+    <div class="bottom-section" id="inventoryScreen" onclick="clickInventoryScreen()">
+      <img src="images/UI/Inventory.png">
+    </div>
+  </div>
+
+  <div class="settings-container" id="settingsScreen">
+    <div class="settings-content">
+      <button class="close-settings" onclick="closeSettings()">✖</button>
+      <h2>⚙️ Settings</h2>
+      <div class="settings-options">
+        <button class="button red" onclick="clearInventory()">Clear Inventory</button>
+        <button class="button" onclick="saveGame()">Save Game</button>
+        <div class="switch-container">
+          <span class="switch-label">Sell Confirmation</span>
+          <label class="switch">
+            <input type="checkbox" id="confirmSellToggle" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

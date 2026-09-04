@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Trading Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="player-cars">
+        <h2>Your Cars</h2>
+        <div id="player-info">
+            <p>Money: $<span id="player-money">10000</span></p>
+            <p>Total Car Slots: <span id="player-car-slots">2</span></p>
+        </div>
+        <div id="player-cars-list"></div>
+        <button id="buy-slot">Buy Car Slot (Cost: $500)</button>
+    </div>
+    <div id="shop">
+        <h2>Car Shop</h2>
+        <div id="shop-cars-list"></div>
+        <button id="open-shop">Open Shop (Sell All Cars)</button>
+        <button id="next-day">Next Day</button>
+    </div>
+
+    <!-- Sound Effects -->
+    <audio id="buy-sound" src="sounds/buy.mp3"></audio>
+    <audio id="sell-sound" src="sounds/sell.mp3"></audio>
+    <audio id="slot-sound" src="sounds/slot.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

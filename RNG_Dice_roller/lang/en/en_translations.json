@@ -1,0 +1,41 @@
+{
+  "game_title": "🎲 RNG Dice Roller",
+  "roll_button": "Roll Dice",
+  "save_button": "💾 Save Game",
+  "stats_button": "📊 Stats",
+  "achievements_button": "🏆 Achievements",
+  "settings_button": "⚙️ Settings",
+
+  "global_upgrades": "⚙️ Global Upgrades",
+  "total_points": "Total Points",
+  "last_roll": "Last Roll",
+
+  "upgrade_menu_title": "Upgrades",
+  "dice_upgrade_menu_title": "Upgrades Dice",
+  "overlay_stats_title": "Stats",
+  "overlay_settings_title": "Settings",
+  "overlay_achievements_title": "Achievements",
+
+  "overlay_stats_dice": "Amount of Dice",
+  "overlay_stats_total": "Total Earned",
+  "reset_button": "♻️ Reset Game",
+  "reset_confirm": "Are you sure you want to reset your game? This will erase all progress and achievements!",
+
+  "upgrade_extra_dice": "Extra Dice",
+  "upgrade_global_mult": "Global Multiplier Max",
+  "upgrade_add_dice": "+1 Dice - Price:",
+  "upgrade_add_mult": "+1 Max Multiplier - Price:",
+
+  "upgrade_multiplier": "Multiplier",
+  "upgrade_min_value": "Min Value",
+  "upgrade_max_value": "Max Value",
+  "upgrade_multiplier_button": "Upgrade (+0.1×) - Price:",
+  "upgrade_min_button": "Upgrade (+1 min) - Price:",
+  "upgrade_max_button": "Upgrade (+1 max) - Price:",
+
+  "achievement_unlocked": "✅ Unlocked",
+  "achievement_locked": "🔒 Locked",
+  "achievement_popup_prefix": "🏆",
+
+  "language_select": "Language"
+}

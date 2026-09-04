@@ -1,0 +1,32 @@
+[
+  {
+    "id": "first-roll",
+    "title": "Your first roll",
+    "description": "Roll the dice"
+  },
+  {
+    "id": "second-dice",
+    "title": "The more the merrier",
+    "description": "Buy your second dice"
+  },
+  {
+    "id": "first-dice-upgrade",
+    "title": "Getting somewhere",
+    "description": "Buy a dice upgrade"
+  },
+  {
+    "id": "global-multiplier-upgrade",
+    "title": "Power Overwhelming!",
+    "description": "Upgraded your global multiplier for the first time."
+  },
+  {
+    "id": "hundred-points",
+    "title": "Money money money",
+    "description": "Have more than 100 points in the bank"
+  },
+  {
+    "id": "thousand-points",
+    "title": "Not slowing down",
+    "description": "Have more than 1000 points in the bank"
+  }
+]

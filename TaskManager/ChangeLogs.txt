@@ -1,0 +1,4 @@
+01/04/2026
+- added a add task button where you can input: title, date, time and description
+- all added tasks are saved in local storage
+- all tasks will be shown on screen in real time

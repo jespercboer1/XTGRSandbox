@@ -1,0 +1,36 @@
+make admin page
+- combine scores catnames - block: invoeren individueel, voting individueel
+- check all users scored all catnames
+- combine scores duonames - block: koppelen duo, voting duo
+- check all users scored all duonames
+- feedback from actions above block
+- redirect users to login page when not Jesper (id = 1; localstorage)
+
+all pages
+- redirect users to login page when no id is found in localstorage
+
+invoeren individueel
+- users can type a name and add it
+- they can view all there own names
+- they can view all the other names anonymously
+- check if a catname is already added
+
+voting individueel
+- all catnames (anonymous) displayed underneath each other, ability to score 1-5 (1 = dislike; 5 = like)
+- underneath page a save button to safe progress of scoring
+
+Tussenstand
+- All catnames (anonymous) ranked underneath each other based on average score
+- score off each user next average score
+
+koppelen duo namen
+- all selected catnames (anonymous) are displayed and users can select 2 to connect as a duo name
+- in de db, the lowest id catname is catname 1, to avoid duplicates also check if duo is already added
+- to select 2 catnames a user can click on 2 catnames and they apear in a duo name genarator as a preview, afterwords the user can click generate to save the duo name
+
+voting duo
+- the same as vating individueel, except its for the duo cat_names
+
+resultaten
+- the same as tussenstand, but now for the duo names
+- 1,2 and 3 get a special view, not fancy just a little special

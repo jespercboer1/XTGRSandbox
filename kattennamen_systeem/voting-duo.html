@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KattenNamen - Voting duo</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f2f2;
+        }
+
+        header {
+            background: #4CAF50;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            flex: 1;
+        }
+
+        nav a {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background: #43a047;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .card h1,
+        .card h2 {
+            margin-top: 0;
+        }
+
+        #status {
+            min-height: 24px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .vote-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 16px;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #dcdcdc;
+        }
+
+        .vote-row:last-child {
+            border-bottom: none;
+        }
+
+        .vote-name {
+            font-size: 18px;
+        }
+
+        .score-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .score-btn {
+            border-radius: 50%;
+            border: 1px solid #4CAF50;
+            background: white;
+            color: #4CAF50;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .score-btn.selected {
+            background: #4CAF50;
+            color: white;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        button:hover {
+            background: #43a047;
+        }
+
+        .muted {
+            color: #666;
+        }
+
+        @media (max-width: 700px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            .vote-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Andere gebruiker kiezen</a></li>
+                <li><a href="invoeren-individueel.html">Invoeren individuele namen</a></li>
+                <li><a href="voting-individueel.html">Voting individuele namen</a></li>
+                <li><a href="tussenstand.html">Tussenstand</a></li>
+                <li><a href="koppelen-duo.html">Koppelen duo namen</a></li>
+                <li><a href="voting-duo.html">Voting duo namen</a></li>
+                <li><a href="resultaten.html">Resultaten</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+            <h1 id="user"></h1>
+            <p class="muted">Geef elk duo een score van 1 t/m 5. Hoe hoger, hoe beter je het duo vindt.</p>
+            <div id="status"></div>
+        </div>
+
+        <div class="card">
+            <h2>Alle duo namen</h2>
+            <div id="votes-list"></div>
+            <button onclick="saveVotes()">Bewaar voortgang</button>
+        </div>
+    </main>
+
+    <script>
+        const userId = localStorage.getItem("user_id");
+        const username = localStorage.getItem("username");
+
+        if (!userId) {
+            location.href = "index.html";
+        }
+
+        document.getElementById("user").innerText = "Welkom, " + username;
+
+        const ratings = [1, 2, 3, 4, 5];
+        const selectedRatings = {};
+
+        async function loadVotes() {
+            console.log("loadVotes start", { userId, username });
+
+            const duoResponse = await fetch("api/get_duo_names.php");
+            console.log("get_duo_names status", duoResponse.status);
+            const duoNames = await duoResponse.json();
+            console.log("get_duo_names data", duoNames);
+
+            const votesResponse = await fetch("api/get_duo_name_votes.php?user_id=" + userId);
+            console.log("get_duo_name_votes status", votesResponse.status);
+            const existingVotes = await votesResponse.json();
+            console.log("get_duo_name_votes data", existingVotes);
+
+            const voteMap = {};
+            existingVotes.forEach(vote => {
+                voteMap[Number(vote.duo_name_id)] = Number(vote.rating);
+            });
+            console.log("voteMap built", voteMap);
+
+            const container = document.getElementById("votes-list");
+            container.innerHTML = "";
+
+            if (duoNames.length === 0) {
+                console.log("No duo names returned from API");
+                container.innerHTML = '<p class="muted">Er zijn nog geen duo\'s beschikbaar.</p>';
+                return;
+            }
+
+            duoNames.forEach(duo => {
+                const row = document.createElement("div");
+                row.className = "vote-row";
+
+                const label = document.createElement("div");
+                label.className = "vote-name";
+                label.innerText = duo.name_1 + " + " + duo.name_2;
+
+                const buttons = document.createElement("div");
+                buttons.className = "score-buttons";
+
+                ratings.forEach(value => {
+                    const button = document.createElement("button");
+                    button.type = "button";
+                    button.className = "score-btn";
+                    button.innerText = value;
+
+                    const duoNameId = Number(duo.id);
+
+                    if (voteMap[duoNameId] === value) {
+                        console.log("Existing vote matched", { duoNameId, rating: value });
+                        button.classList.add("selected");
+                        selectedRatings[duoNameId] = value;
+                    }
+
+                    button.onclick = () => {
+                        console.log("Vote clicked", { duoNameId, rating: value });
+                        selectedRatings[duoNameId] = value;
+                        Array.from(buttons.children).forEach(btn => btn.classList.remove("selected"));
+                        button.classList.add("selected");
+                    };
+
+                    buttons.appendChild(button);
+                });
+
+                row.appendChild(label);
+                row.appendChild(buttons);
+                container.appendChild(row);
+            });
+
+            console.log("loadVotes end", { selectedRatings });
+        }
+
+        async function saveVotes() {
+            const status = document.getElementById("status");
+            const votes = Object.entries(selectedRatings).map(([duoNameId, rating]) => ({
+                duo_name_id: Number(duoNameId),
+                rating: Number(rating)
+            }));
+
+            if (votes.length === 0) {
+                status.innerText = "Je hebt nog geen scores gekozen.";
+                status.style.color = "#b91c1c";
+                return;
+            }
+
+            const response = await fetch("api/save_duo_votes.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: Number(userId),
+                    votes: votes
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                status.innerText = result.message;
+                status.style.color = "#2e7d32";
+            } else {
+                status.innerText = result.message;
+                status.style.color = "#b91c1c";
+            }
+        }
+
+        loadVotes();
+    </script>
+</body>
+</html>

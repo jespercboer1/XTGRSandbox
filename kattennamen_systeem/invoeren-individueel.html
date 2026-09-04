@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KattenNamen - Invoeren</title>
+
+    <style>
+        body{
+            margin:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:#f2f2f2;
+        }
+
+        header{
+            background:#4CAF50;
+        }
+
+        nav ul{
+            list-style:none;
+            display:flex;
+            margin:0;
+            padding:0;
+        }
+
+        nav li{
+            flex:1;
+        }
+
+        nav a{
+            display:block;
+            padding:15px;
+            color:white;
+            text-decoration:none;
+            text-align:center;
+        }
+
+        nav a:hover{
+            background:#43a047;
+        }
+
+        main{
+            max-width:900px;
+            margin:40px auto;
+            padding: 0 16px;
+        }
+
+        .card{
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            margin-bottom:25px;
+        }
+
+        .card h1,
+        .card h2 {
+            margin-top: 0;
+        }
+
+        input{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button{
+            margin-top: 15px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        button:hover{
+            background: #43a047;
+        }
+
+        #my-names-ul,
+        #all-names-ul{
+            list-style:none;
+            padding:0;
+            margin:0;
+            display:flex;
+            flex-wrap:wrap;
+            gap:8px 16px;
+        }
+
+        #my-names-ul li,
+        #all-names-ul li{
+            padding:6px 12px;
+            border:1px solid #ccc;
+            border-radius:6px;
+            background:white;
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        #my-names-ul li {
+            cursor:pointer;
+        }
+
+        #my-names-ul li.selected {
+            background:#fef2f2;
+            border-color:#ef4444;
+            color:#b91c1c;
+        }
+
+        .delete-mark{
+            display: none;
+            font-size:18px;
+            font-weight:bold;
+            color:#dc2626;
+            user-select:none;
+        }
+
+        #my-names-ul li.selected .delete-mark {
+            display: inline;
+        }
+
+        #all-names-ul li span{
+            color:#777;
+            font-size:13px;
+        }
+
+        #error {
+            min-height: 24px;
+            color: #b91c1c;
+            font-weight: bold;
+        }
+
+        .muted {
+            color: #666;
+        }
+
+		@media (max-width: 700px) {
+            nav ul {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Andere gebruiker kiezen</a></li>
+            <li><a href="invoeren-individueel.html">Invoeren individuele namen</a></li>
+            <li><a href="voting-individueel.html">Voting individuele namen</a></li>
+            <li><a href="tussenstand.html">Tussenstand</a></li>
+            <li><a href="koppelen-duo.html">Koppelen duo namen</a></li>
+            <li><a href="voting-duo.html">Voting duo namen</a></li>
+            <li><a href="resultaten.html">Resultaten</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="card">
+        <h1 id="user"></h1>
+        <p class="muted">Voeg een nieuwe kattennaam toe:</p>
+
+        <input
+        type="text"
+        id="name-input"
+        maxlength="100"
+        placeholder="Naam">
+
+        <button onclick="addName()">
+        Voeg naam toe
+        </button>
+
+        <p id="error"></p>
+    </div>
+
+    <div class="card">
+        <h2>Jouw namen</h2>
+		<p class="muted">Verwijder een naam door er 2 keer op te klikken.</p>
+        <ul id="my-names-ul"></ul>
+    </div>
+
+    <div class="card">
+        <h2>Alle namen</h2>
+        <ul id="all-names-ul"></ul>
+    </div>
+</main>
+
+<script>
+    const userId = localStorage.getItem("user_id");
+    const username = localStorage.getItem("username");
+
+    document.getElementById("user").innerText =
+    "Welkom, " + username;
+
+    async function loadNames(){
+        let myResponse = await fetch(
+            "api/get_my_names.php?user_id=" + userId
+        );
+
+        let myNames = await myResponse.json();
+        let myList = document.getElementById("my-names-ul");
+        myList.innerHTML = "";
+
+        myNames.forEach(name=>{
+            let li = document.createElement("li");
+            li.dataset.nameId = name.id;
+
+            let text = document.createElement("span");
+            text.innerText = name.name;
+
+            let deleteMark = document.createElement("span");
+            deleteMark.className = "delete-mark";
+            deleteMark.innerText = "×";
+
+            li.onclick = () => {
+                if (li.classList.contains("selected")) {
+                    deleteName(name.id);
+                    return;
+                }
+
+                li.classList.add("selected");
+            };
+
+            li.appendChild(text);
+            li.appendChild(deleteMark);
+            myList.appendChild(li);
+        });
+
+        let allResponse = await fetch(
+            "api/get_all_names.php"
+        );
+
+        let allNames = await allResponse.json();
+        let allList = document.getElementById("all-names-ul");
+        allList.innerHTML = "";
+
+        allNames.forEach(name=>{
+            let li = document.createElement("li");
+            li.innerHTML = name.name;
+            allList.appendChild(li);
+        });
+    }
+
+    async function deleteName(catNameId){
+        let error = document.getElementById("error");
+
+        let response = await fetch(
+            "api/delete_cat_name.php",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    user_id:userId,
+                    cat_name_id:catNameId
+                })
+            }
+        );
+
+        let result = await response.json();
+
+        if(result.success){
+            error.innerText = "";
+            loadNames();
+        }else{
+            error.innerText = result.message;
+        }
+    }
+
+    async function addName(){
+        let input = document.getElementById("name-input");
+        let error = document.getElementById("error");
+
+        let name = input.value.trim();
+
+        if(name==="") {
+            error.innerText = "Vul eerst een naam in.";
+            return;
+        }
+
+        error.innerText = "";
+
+        let response = await fetch(
+            "api/add_name.php",
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+                    user_id:userId,
+                    name:name
+                })
+            }
+        );
+
+        let result = await response.json();
+
+        if(result.success){
+            input.value="";
+            error.innerText = "";
+            loadNames();
+        }else{
+            error.innerText=result.message;
+        }
+    }
+
+    document.addEventListener("click", function(event) {
+        const clickedNameItem = event.target.closest("#my-names-ul li");
+
+        if (!clickedNameItem) {
+            document.querySelectorAll("#my-names-ul li.selected").forEach(item => {
+                item.classList.remove("selected");
+            });
+        }
+    });
+
+    loadNames();
+</script>
+
+</body>
+</html>

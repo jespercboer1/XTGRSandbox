@@ -1,0 +1,32 @@
+[
+  {
+    "id": "first-roll",
+    "title": "Je eerste worp",
+    "description": "Gooi de dobbelsteen"
+  },
+  {
+    "id": "second-dice",
+    "title": "Hoe meer, hoe beter",
+    "description": "Koop je tweede dobbelsteen"
+  },
+  {
+    "id": "first-dice-upgrade",
+    "title": "We komen ergens",
+    "description": "Koop een dobbelsteen upgrade"
+  },
+  {
+    "id": "global-multiplier-upgrade",
+    "title": "Overweldigende Kracht!",
+    "description": "Je hebt voor het eerst een globale vermenigvuldiger upgrade gekocht."
+  },
+  {
+    "id": "hundred-points",
+    "title": "Geld, geld, geld",
+    "description": "Heb meer dan 100 punten op de bank"
+  },
+  {
+    "id": "thousand-points",
+    "title": "Niet te stoppen",
+    "description": "Heb meer dan 1000 punten op de bank"
+  }
+]

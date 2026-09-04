@@ -1,0 +1,609 @@
+/* GENERAL */
+/* Setting up the screen */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0e0e0e;
+  color: #f0f0f0;
+  padding: 40px;
+	user-select: none;
+}
+
+/* Style for the title */
+h1 {
+  font-size: 2.5em;
+  color: #00ffff;
+  margin: 0;
+}
+
+/* style for sub title */
+h2 {
+  font-size: 1.4em;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+/* style for general buttons */
+.button {
+  margin: 5px 5px 10px 0;
+  padding: 12px 18px;
+  background: linear-gradient(to right, #00ffff, #009999);
+  color: #000;
+  font-weight: bold;
+  font-size: 0.95em;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+/* button hover style */
+.button:hover:not(:disabled) {
+  background: linear-gradient(to right, #00dddd, #006666);
+  transform: scale(1.05);
+}
+
+/* if button is disabled */
+button:disabled {
+  background: linear-gradient(to right, #009999, #004d4d);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* red type of button */
+.button.red {
+  background: linear-gradient(to right, #ff4b4b, #aa0000);
+  color: #fff;
+}
+
+/* red button hover style */
+.button.red:hover:not(:disabled) {
+  background: linear-gradient(to right, #cc0000, #660000);
+}
+
+/* if red button is disabled */
+.button.red:disabled {
+  background: linear-gradient(to right, #990000, #330000);
+}
+
+/* Color for rarity text */
+.rarity-common {
+  color: #888;
+}
+.rarity-uncommon {
+  color: #4caf50;
+}
+.rarity-rare {
+  color: #2196f3;
+}
+.rarity-epic {
+  color: #c229dd;
+}
+.rarity-legendary {
+  color: #f39c12;
+}
+
+/* Color for rarity block background color */
+.rarity-common-b {
+  background-color: #888;
+}
+.rarity-uncommon-b {
+  background-color: #4caf50;
+}
+.rarity-rare-b {
+  background-color: #2196f3;
+}
+.rarity-epic-b {
+  background-color: #c229dd;
+}
+.rarity-legendary-b {
+  background-color: #f39c12;
+}
+
+
+
+
+/* TOP OF SCREEN */
+/* The row with the money, title and settings button */
+.top-row {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  align-items: flex-start;
+}
+
+/* section with the money display */
+.top-left {
+  height: 100px;
+  border: 1px solid #333;
+  background: #1e1e1e;
+  border-radius: 20px;
+	padding: 0px 36px;
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the money text */
+.top-left p {
+  margin: 0;
+}
+
+/* section with the title */
+.top-middle {
+  width: 600px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* section with the settings button */
+.top-right {
+  height: 100px;
+  width: 100px;
+  border: 1px solid #333;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	transition: background-color 0.1s ease;
+	cursor: pointer;
+}
+
+/* Style for the settings button image */
+.top-right img {
+  width: 80px;
+  height: 80px;
+	border-radius: 20px;
+}
+
+/* Style for the settings button hover */
+.top-right:hover {
+	background-color: #333;
+}
+
+/* settings popup container (transparent black background) */
+.settings-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+
+.settings-content {
+  background-color: #1e1e1e;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  position: relative;
+  min-width: 300px;
+}
+
+
+.settings-content button {
+  margin-top: 20px;
+}
+
+
+.close-settings {
+	position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5em;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+.settings-options {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 30px;
+}
+
+/* Hide default checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: red;
+  transition: 0.4s;
+  border-radius: 16px;
+}
+
+/* The circle inside the slider */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.2s;
+  border-radius: 50%;
+}
+
+/* Checked state */
+input:checked + .slider {
+  background-color: lime;
+}
+
+/* Move circle when checked */
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+
+
+
+/* MIDDLE ROW */
+
+.middle-row {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.flex-row {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+
+.flex-row button {
+	height: 100px;
+	width: 200px;
+	font-size: 1.1em;
+}
+
+
+.section {
+  flex: 1;
+  border: 1px solid #333;
+  background: #1e1e1e;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.section-left {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+}
+
+
+.section-right {
+	flex: 1;
+	min-width: 240px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 20px;
+	background-color: #262626;
+	padding: 20px;
+}
+
+
+.section-car {
+	height: 132px;
+	width: 240px;
+	border-radius: 28px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding-top: 10px;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+}
+
+
+.section-car p {
+	margin: 4px;
+}
+
+
+.section-car-upper {
+	width: 220px;
+	height: 100px;
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #1e1e1e;
+}
+
+
+.section-car img {
+	max-width: 100%;
+	max-height: 100%;
+	color: white;
+}
+
+
+.section-rarity {
+	width: 240px;
+	height: 120px;
+	border-radius: 28px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.section-rarity-upper {
+	width: 220px;
+	height: 100px;
+	border-radius: 20px;
+	background-color: #1e1e1e;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+
+.section-multiplier {
+	height: 120px;
+	width: 120px;
+	border-radius: 60px;
+	background-color: white;
+	color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2.4em;
+	font-weight: bold;
+}
+
+
+.section-multiplier p {
+	margin: 0;
+	padding: 0;
+}
+
+/* top of inventory container */
+.inventory-top-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* sorting inventory style for label */
+.sort-label {
+  font-size: 1em;
+  margin-right: 10px;
+}
+
+/* sorting inventory style for select */
+.sort-select {
+  background-color: #1e1e1e;
+  color: #00ffff;
+  border: 1px solid #00ffff;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 1em;
+  font-family: inherit;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+
+.sort-select:hover {
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+  border-color: #00dddd;
+}
+
+
+.sort-select:focus {
+  outline: none;
+  box-shadow: 0 0 14px rgba(0, 255, 255, 0.5);
+  border-color: #00ffff;
+}
+
+
+#inventoryList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Outer border div with rarity color */
+.car-border {
+  padding: 10px;
+  border-radius: 28px;
+  display: inline-block;
+}
+
+/* Inner card */
+.car-card {
+  position: relative;
+  width: 300px;
+  height: 240px;
+  border-radius: 20px;
+  background-color: #1E1E1E;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* wrapper around image */
+.car-image-wrapper {
+  width: 100%;
+  height: 120px;
+  background-color: #262626;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Car image */
+.car-image {
+  max-height: 100%;
+  max-width: 100%;
+  color: white;
+}
+
+/* Multiplier badge */
+.multiplier-circle {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* Info text */
+.car-info {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 50px;
+}
+
+/* Button wrapper */
+.car-button-wrapper {
+  position: absolute;
+  bottom: -20px;
+  width: 300px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+
+.independent-section {
+  flex: 1;
+  min-width: 250px;
+  border: 1px solid #333;
+  padding: 20px;
+  background: #1e1e1e;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
+}
+
+
+.independent-section p {
+  margin-top: 10px;
+  font-size: 1.1em;
+}
+
+
+
+
+/* BOTTOM ROW */
+
+.bottom-row {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+
+.bottom-section {
+  min-width: 100px;
+  height: 100px;
+  border: 1px solid #333;
+  background: #1e1e1e;
+  border-radius: 20px;
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	transition: background-color 0.1s ease;
+	cursor: pointer;
+}
+
+
+.bottom-section img {
+  width: 80px;
+  height: 80px;
+}
+
+
+.bottom-section:hover {
+			background-color: #333;
+}
+
+
+.active-outline {
+  animation: outlineGlow 0.1s ease forwards;
+  outline: 3px solid #00ffff;
+  border-radius: 20px;
+}
+
+
+@keyframes outlineGlow {
+  from {
+    outline-color: transparent;
+    outline-width: 0px;
+  }
+  to {
+    outline-color: #00ffff;
+    outline-width: 5px;
+  }
+}

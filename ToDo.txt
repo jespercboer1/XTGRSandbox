@@ -1,0 +1,15 @@
+To Do List:
+
+Must:
+- add login page
+- add register page
+- add reset password logic
+- update game db's to work with new central users db
+
+Should:
+- update central page style to fit new button styles
+
+Could:
+
+
+Wont:

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #number {
+            font-size: 50px;
+            font-weight: bold;
+            margin: 20px;
+        }
+        #score {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Countdown Game</h1>
+    <div id="number">100</div>
+    <button onclick="stopCountdown()">Click to Stop</button>
+    <div id="score"></div>
+    
+    <script>
+        let count = 100;
+        let interval = setInterval(() => {
+            count--;
+            document.getElementById("number").innerText = count;
+            if (count <= 0) {
+                clearInterval(interval);
+            }
+        }, 100);
+        
+        function stopCountdown() {
+            clearInterval(interval);
+            let score = 100 - count;
+            document.getElementById("score").innerText = "Your score: " + score;
+        }
+    </script>
+</body>
+</html>

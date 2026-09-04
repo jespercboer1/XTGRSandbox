@@ -1,0 +1,130 @@
+body {
+    font-family: sans-serif, Arial, Helvetica;
+    margin: 0;
+    padding: 0;
+    background-color: #111111;
+    color: #F6F6F6;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+
+/* Main content styles */
+.menu_container {
+    width: 300px;
+    padding: 20px;
+    background-color: #222222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    box-shadow: #ff6600 0px 0px 10px 6px;
+    position: relative;
+    z-index: 1;
+}
+
+.menu_title {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.stats_container {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+/* Menu options styles */
+.options_container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu_button {
+    padding: 4px 4px;
+    width: 80%;
+    background-color: #444444;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    color: #F6F6F6;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    user-select: none;
+    box-shadow: #111111 0px 0px 6px 2px;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    white-space: nowrap;
+}
+
+.menu_button:hover {
+    background-color: #555555;
+    color: #ff6600;
+    box-shadow: #ff6600 0px 0px 6px 2px;
+}
+
+.menu_button:active {
+    box-shadow: inset #111111 0px 0px 2px 2px;
+}
+
+.menu_btn_icon {
+    display: flex;
+    align-items: center;
+}
+
+.menu_btn_icon svg {
+    width: 40px;
+    height: 40px;
+    color: #F6F6F6; /* uses currentColor */
+    transition: color 0.2s ease-in-out;
+}
+
+.menu_button:hover svg {
+    color: #ff6600;
+}
+
+.menu_btn_text {
+    flex: 1;
+    text-align: center;
+}
+
+/*menu items styles*/
+.stat_label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.devider {
+    width: 80%;
+    height: 1px;
+    background-color: #ff6600;
+}
+
+/* Game container styles */
+.game_container {
+    flex: 1;
+    padding: 30px;
+    background-color: #111111;
+}

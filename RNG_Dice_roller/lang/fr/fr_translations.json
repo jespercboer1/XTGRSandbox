@@ -1,0 +1,41 @@
+{
+  "game_title": "🎲 Lanceur de Dés RNG",
+  "roll_button": "Lancer les Dés",
+  "save_button": "💾 Sauvegarder la Partie",
+  "stats_button": "📊 Statistiques",
+  "achievements_button": "🏆 Succès",
+  "settings_button": "⚙️ Paramètres",
+
+  "global_upgrades": "⚙️ Améliorations Globales",
+  "total_points": "Points Totaux",
+  "last_roll": "Dernier Lancer",
+
+  "upgrade_menu_title": "Améliorations",
+  "dice_upgrade_menu_title": "Améliorations les Dés",
+  "overlay_stats_title": "Statistiques",
+  "overlay_settings_title": "Paramètres",
+  "overlay_achievements_title": "Succès",
+
+  "overlay_stats_dice": "Nombre de Dés",
+  "overlay_stats_total": "Total Gagné",
+  "reset_button": "♻️ Réinitialiser le Jeu",
+  "reset_confirm": "Voulez-vous vraiment réinitialiser votre jeu ? Cela effacera toute votre progression et vos succès !",
+
+  "upgrade_extra_dice": "Dé Supplémentaire",
+  "upgrade_global_mult": "Multiplicateur Global Max",
+  "upgrade_add_dice": "+1 Dé - Prix :",
+  "upgrade_add_mult": "+1 Max Multiplicateur - Prix :",
+
+  "upgrade_multiplier": "Multiplicateur",
+  "upgrade_min_value": "Valeur Minimum",
+  "upgrade_max_value": "Valeur Maximum",
+  "upgrade_multiplier_button": "Améliorer (+0.1×) - Prix :",
+  "upgrade_min_button": "Améliorer (+1 min) - Prix :",
+  "upgrade_max_button": "Améliorer (+1 max) - Prix :",
+
+  "achievement_unlocked": "✅ Débloqué",
+  "achievement_locked": "🔒 Verrouillé",
+  "achievement_popup_prefix": "🏆",
+
+  "language_select": "Langue"
+}

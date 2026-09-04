@@ -1,0 +1,103 @@
+.game_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Game options styles */
+.game_options {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 3px;
+}
+
+.game_option_goto, .game_option_action {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.game_option_goto {
+    color: #ff6600;
+}
+
+.game_option_action {
+    color: #66ccff;
+}
+
+/* Inventory styles */
+.inventory-content {
+    display: flex;
+    gap: 10px;
+}
+
+.inventory-item {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 6px 6px;
+    border-radius: 6px;
+    min-width: 160px;
+    vertical-align: top;
+}
+
+.inventory-item .item-name {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.inventory-item .item-qty {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #222;
+    color: #fff;
+    border-radius: 12px;
+    min-width: 22px;
+}
+
+.inventory-item .tooltip {
+    visibility: hidden;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    z-index: 10;
+    margin-bottom: 10px;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.inventory-item .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #333;
+}
+
+.inventory-item:hover .tooltip {
+    visibility: visible;
+}
+
+.tooltip-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+.qty {
+    font-size: 16px;
+    font-weight: bold;
+}

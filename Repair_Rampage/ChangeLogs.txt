@@ -1,0 +1,11 @@
+12/04/2026
+- initialize project onto site
+
+prior to 12/04/2026
+- made game where you can click on options to go to different scenes
+- made menu
+- added stats to menu
+- made overlay screeb
+- added inventory button to menu
+- added settings, help, save buttons to menu
+- added functions that interact with stats to game options

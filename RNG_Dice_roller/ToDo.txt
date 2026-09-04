@@ -1,0 +1,18 @@
+Mogelijke updates:
+
+Must:
+- explaination when min value = max value
+- price balance
+- hint: dice = button
+- reset button cant be accest by language control when settings to open
+
+Should:
+- more stats
+- add help page (button left to menu button)
+- welcome message, f5 if game broken
+
+Could:
+- add FAQ to help page
+- add hidden achievements
+- add progess bar to achievements
+- auto dice roller upgrade

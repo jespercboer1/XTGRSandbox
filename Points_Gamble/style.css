@@ -1,0 +1,13 @@
+body {
+  user-select: none;
+}
+
+#addpoint {
+  width: 400px;
+  height: 200px;
+}
+
+#gamble {
+  width: 400px;
+  height: 50px;
+}

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML Stap-voor-Stap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+        }
+        section {
+            margin: 20px 0;
+        }
+        .code-block {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        .highlight {
+            color: #d94e00;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .quiz {
+            margin-top: 30px;
+        }
+        .quiz-question {
+            margin: 10px 0;
+        }
+        .live-preview {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #eee;
+            border: 1px solid #ddd;
+        }
+        .output {
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            font-family: sans-serif;
+            margin-top: 20px;
+        }
+        .correctInput {
+            color:darkgreen;
+        }
+        .wrongInput {
+            color:darkred;
+        }
+
+        /* End Page Styling */
+        #endPage {
+            display: none;
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #endPage h2 {
+            font-size: 2em;
+            color: #4CAF50;
+        }
+
+        #endPage p {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        #resetButton {
+            background-color: #ff6347;
+        }
+
+        #resetButton:hover {
+            background-color: #e5533c;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Leer HTML Stap-voor-Stap</h1>
+    </header>
+
+    <!-- First Page: Introduction to HTML -->
+    <section id="intro">
+        <h2>Introductie tot HTML</h2>
+        <p>HTML (HyperText Markup Language) is de standaardtaal voor het maken van webpagina's en webapplicaties. Het vormt de structuur van de inhoud op het web en is de basis van elke website.</p>
+        <p>HTML bestaat uit een reeks elementen, die worden weergegeven door tags zoals <span class="highlight">&lt;h1&gt;</span>, <span class="highlight">&lt;p&gt;</span>, en <span class="highlight">&lt;a&gt;</span>. Deze elementen kunnen koppen, alinea's, links, afbeeldingen en andere inhoud definiëren.</p>
+        <p>De structuur van een basishtml-document ziet er als volgt uit:</p>
+        <div class="code-block">
+            <code>&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&nbsp;&nbsp;&lt;head&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Pagina Titel&lt;/title&gt;<br>&nbsp;&nbsp;&lt;/head&gt;<br>&nbsp;&nbsp;&lt;body&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Dit is een kop&lt;/h1&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Dit is een alinea.&lt;/p&gt;<br>&nbsp;&nbsp;&lt;/body&gt;<br>&lt;/html&gt;</code>
+        </div>
+        <p>Dit is een zeer eenvoudige structuur die de basis vormt van elk HTML-document. Het <span class="highlight">&lt;head&gt;</span>-gedeelte bevat metadata zoals de titel, terwijl het <span class="highlight">&lt;body&gt;</span>-gedeelte de zichtbare inhoud van de pagina bevat.</p>
+        <p>Wanneer je eenmaal vertrouwd bent met de basisstructuur, gaan we verschillende HTML-tags verkennen om complexere pagina's te maken!</p>
+        <button onclick="moveToStep1()">Begin met het leren van HTML</button>
+    </section>
+
+    <!-- Step 1: The &lt;h1&gt; Tag -->
+    <section id="step1" style="display:none;">
+        <h2>Stap 1: De &lt;h1&gt; Tag</h2>
+        <p>De <span class="highlight">&lt;h1&gt;</span> tag wordt gebruikt om de hoofdtekst van een pagina te maken. Het wordt meestal gebruikt voor de titel van de pagina of sectie.</p>
+        <p>Voorbeeld:</p>
+        <div class="code-block">
+            <code>&lt;h1&gt;Dit is een kop&lt;/h1&gt;</code>
+        </div>
+        <p><strong>Hoe het eruit ziet:</strong></p>
+        <div class="live-preview">
+            <h1>Dit is een kop</h1>
+        </div>
+        <p>Nu kun je je eigen <span class="highlight">&lt;h1&gt;</span> tag schrijven.</p>
+        <textarea id="h1Input" rows="3" cols="50" placeholder="Schrijf hier je zin met de &lt;h1&gt; tag..."></textarea><br><br>
+        <button onclick="checkH1()">Controleer</button>
+        <div class="output" id="h1Output"></div>
+        <p class="correctInput" id="correctH1">Goed gedaan!</p>
+        <p class="wrongInput" id="wrongH1">Bijna! Probeer het nog een keer!</p>
+        <button id="nextH1" onclick="nextH1()">Volgende</button>
+    </section>
+
+    <!-- Step 2: The &lt;p&gt; Tag -->
+    <section id="step2" style="display:none;">
+        <h2>Stap 2: De &lt;p&gt; Tag</h2>
+        <p>De <span class="highlight">&lt;p&gt;</span> tag wordt gebruikt om alinea's te maken. Je kunt tekst erin schrijven om inhoud te structureren.</p>
+        <p>Voorbeeld:</p>
+        <div class="code-block">
+            <code>&lt;p&gt;Dit is een alinea.&lt;/p&gt;</code>
+        </div>
+        <p><strong>Hoe het eruit ziet:</strong></p>
+        <div class="live-preview">
+            <p>Dit is een alinea.</p>
+        </div>
+        <p>Nu kun je je eigen <span class="highlight">&lt;p&gt;</span> tag schrijven.</p>
+        <textarea id="pInput" rows="3" cols="50" placeholder="Schrijf hier je zin met de &lt;p&gt; tag..."></textarea><br><br>
+        <button onclick="checkP()">Controleer</button>
+        <div class="output" id="pOutput"></div>
+        <p class="correctInput" id="correctP">Goed gedaan!</p>
+        <p class="wrongInput" id="wrongP">Bijna! Probeer het nog een keer!</p>
+        <button id="nextP" onclick="nextP()">Volgende</button>
+    </section>
+
+    <!-- Step 3: The &lt;a&gt; Tag -->
+    <section id="step3" style="display:none;">
+        <h2>Stap 3: De &lt;a&gt; Tag</h2>
+        <p>De <span class="highlight">&lt;a&gt;</span> tag wordt gebruikt om hyperlinks te maken. Je kunt het gebruiken om naar andere pagina's of websites te linken.</p>
+        <p>Voorbeeld:</p>
+        <div class="code-block">
+            <code>&lt;a href="https://www.voorbeeld.com"&gt;Bezoek Voorbeeld&lt;/a&gt;</code>
+        </div>
+        <p><strong>Hoe het eruit ziet:</strong></p>
+        <div class="live-preview">
+            <a href="https://www.example.com" target="_blank">Bezoek Voorbeeld</a>
+        </div>
+        <p>Nu kun je je eigen <span class="highlight">&lt;a&gt;</span> tag schrijven.</p>
+        <textarea id="aInput" rows="3" cols="50" placeholder="Schrijf hier je zin met de &lt;a&gt; tag..."></textarea><br><br>
+        <button onclick="checkA()">Controleer</button>
+        <div class="output" id="aOutput"></div>
+        <p class="correctInput" id="correctA">Goed gedaan!</p>
+        <p class="wrongInput" id="wrongA">Bijna! Probeer het nog een keer!</p>
+        <button id="nextA" onclick="nextA()">Volgende</button>
+    </section>
+
+    <!-- Step 4: The &lt;img&gt; Tag -->
+    <section id="step4" style="display:none;">
+        <h2>Stap 4: De &lt;img&gt; Tag</h2>
+        <p>De <span class="highlight">&lt;img&gt;</span> tag wordt gebruikt om afbeeldingen op je pagina weer te geven. Je geeft de afbeeldingsbron op met het <span class="highlight">src</span> attribuut.</p>
+        <p>Voorbeeld:</p>
+        <div class="code-block">
+            <code>&lt;img src="Porsche911.jpg"&gt;</code>
+        </div>
+        <p><strong>Hoe het eruit ziet:</strong></p>
+        <div class="live-preview">
+            <img src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBvcnNjaGUlMjA5MTF8ZW58MHx8MHx8fDA%3D" alt="Porsche911">
+        </div>
+        <p>Nu kun je je eigen <span class="highlight">&lt;img&gt;</span> tag schrijven.</p>
+        <textarea id="imgInput" rows="3" cols="50" placeholder="Schrijf hier je <img> tag..."></textarea><br><br>
+        <button onclick="checkImg()">Controleer</button>
+        <div class="output" id="imgOutput"></div>
+        <p class="correctInput" id="correctImg">Goed gedaan!</p>
+        <p class="wrongInput" id="wrongImg">Bijna! Probeer het nog een keer!</p>
+        <button id="nextImg" onclick="nextImg()">Volgende</button>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" style="display:none;" class="quiz">
+        <h2>Quiz: Test je kennis!</h2>
+        <p>Match de HTML-tag met zijn functie:</p>
+    
+        <!-- Original 4 quiz questions -->
+        <div class="quiz-question">
+            <label for="quiz1">1. Waar staat HTML voor?</label><br>
+            <select id="quiz1">
+                <option value="incorrect">HyperText Main Language</option>
+                <option value="correct">HyperText Markup Language</option>
+                <option value="incorrect">HyperText Machine Language</option>
+            </select>
+        </div>
+
+        <div class="quiz-question">
+            <label for="quiz2">2. Welke tag definieert de hoofdkop van een pagina?</label><br>
+            <select id="quiz2">
+                <option value="incorrect">&lt;p&gt;</option>
+                <option value="correct">&lt;h1&gt;</option>
+                <option value="incorrect">&lt;header&gt;</option>
+            </select>
+        </div>
+
+        <div class="quiz-question">
+            <label for="quiz3">3. Waar gaat de inhoud van de pagina in een HTML-document?</label><br>
+            <select id="quiz3">
+                <option value="incorrect">&lt;head&gt;</option>
+                <option value="correct">&lt;body&gt;</option>
+                <option value="incorrect">&lt;footer&gt;</option>
+            </select>
+        </div>
+
+        <div class="quiz-question">
+            <label for="quiz4">4. Wat is de rol van de &lt;head&gt; tag?</label><br>
+            <select id="quiz4">
+                <option value="incorrect">Bevat zichtbare inhoud</option>
+                <option value="correct">Bevat metadata en links naar scripts/stijlen</option>
+                <option value="incorrect">Bevat de hoofdinformatie</option>
+            </select>
+        </div>
+
+        <!-- Additional 4 quiz questions -->
+        <div class="quiz-question">
+            <label for="quiz5">5. Welke tag wordt gebruikt om een alinea te maken?</label><br>
+            <select id="quiz5">
+                <option value="incorrect">&lt;h1&gt;</option>
+                <option value="incorrect">&lt;div&gt;</option>
+                <option value="correct">&lt;p&gt;</option>
+            </select>
+        </div>
+
+        <div class="quiz-question">
+            <label for="quiz6">6. Welke tag wordt gebruikt om hyperlinks te maken?</label><br>
+            <select id="quiz6">
+                <option value="correct">&lt;a&gt;</option>
+                <option value="incorrect">&lt;link&gt;</option>
+                <option value="incorrect">&lt;href&gt;</option>
+            </select>
+        </div>
+
+        <div class="quiz-question">
+            <label for="quiz7">7. Welke tag wordt gebruikt voor het invoegen van een afbeelding?</label><br>
+            <select id="quiz7">
+                <option value="incorrect">&lt;picture&gt;</option>
+                <option value="incorrect">&lt;a&gt;</option>
+                <option value="correct">&lt;img&gt;</option>
+            </select>
+        </div>
+
+        <div class="quiz-question">
+            <label for="quiz8">8. Welke attribuut wordt gebruikt om de afbeeldingsbron op te geven?</label><br>
+            <select id="quiz8">
+                <option value="incorrect">alt</option>
+                <option value="incorrect">href</option>
+                <option value="correct">src</option>
+            </select>
+        </div>
+
+        <button onclick="checkQuiz()">Dien quiz in</button>
+    </section>
+
+    <!-- End Page -->
+    <section id="endPage">
+        <h2>Gefeliciteerd!</h2>
+        <p>Je hebt <span id="scoreDisplay"></span> punten van de 8 punten behaald. Geweldig werk!</p>
+        <button onclick="resetLearning()">Opnieuw beginnen</button>
+    </section>
+
+    <button id="resetButton" onclick="resetLearning()">Opnieuw beginnen</button>
+
+    <footer>
+        <p>Gemaakt met &#10084;&#65039; voor het leren van de HTML basis.</p>
+    </footer>
+
+    <script>
+        document.getElementById("resetButton").style.display = "none";
+
+        document.getElementById("h1Input").value = "";
+        document.getElementById("pInput").value = "";
+        document.getElementById("aInput").value = "";
+        document.getElementById("imgInput").value = "";
+
+        document.getElementById("wrongH1").style.display = "none";
+        document.getElementById("correctH1").style.display = "none";
+        document.getElementById("nextH1").style.display = "none";
+        document.getElementById("h1Output").style.display = "none";
+
+        document.getElementById("wrongP").style.display = "none";
+        document.getElementById("correctP").style.display = "none";
+        document.getElementById("nextP").style.display = "none";
+        document.getElementById("pOutput").style.display = "none";
+
+        document.getElementById("wrongA").style.display = "none";
+        document.getElementById("correctA").style.display = "none";
+        document.getElementById("nextA").style.display = "none";
+        document.getElementById("aOutput").style.display = "none";
+
+        document.getElementById("wrongImg").style.display = "none";
+        document.getElementById("correctImg").style.display = "none";
+        document.getElementById("nextImg").style.display = "none";
+        document.getElementById("imgOutput").style.display = "none";
+
+
+        function moveToStep1() {
+            document.getElementById("intro").style.display = "none";
+            document.getElementById("step1").style.display = "block";
+            document.getElementById("resetButton").style.display = "block";
+        }
+
+        function checkH1() {
+            const userInput = document.getElementById("h1Input").value;
+            document.getElementById("h1Output").innerHTML = "<h1>" + userInput + "</h1>";
+            if (userInput.includes("<h1>") && userInput.includes("</h1>")) {
+                document.getElementById("correctH1").style.display = "block";
+                document.getElementById("nextH1").style.display = "block";
+                document.getElementById("wrongH1").style.display = "none";
+                document.getElementById("h1Output").style.display = "block";
+            } else {
+                document.getElementById("wrongH1").style.display = "block";
+                document.getElementById("correctH1").style.display = "none";
+                document.getElementById("nextH1").style.display = "none";
+                document.getElementById("h1Output").style.display = "none";
+            }
+        }
+
+        function nextH1() {
+          document.getElementById("step1").style.display = "none";
+          document.getElementById("step2").style.display = "block";
+        }
+
+        function checkP() {
+            const userInput = document.getElementById("pInput").value;
+            document.getElementById("pOutput").innerHTML = "<p>" + userInput + "</p>";
+            if (userInput.includes("<p>") && userInput.includes("</p>")) {
+                document.getElementById("correctP").style.display = "block";
+                document.getElementById("nextP").style.display = "block";
+                document.getElementById("wrongP").style.display = "none";
+                document.getElementById("pOutput").style.display = "block";
+            } else {
+                document.getElementById("wrongP").style.display = "block";
+                document.getElementById("correctP").style.display = "none";
+                document.getElementById("nextP").style.display = "none";
+                document.getElementById("pOutput").style.display = "none";
+            }
+        }
+
+        function nextP() {
+          document.getElementById("step2").style.display = "none";
+          document.getElementById("step3").style.display = "block";
+        }
+
+        function checkA() {
+            const userInput = document.getElementById("aInput").value;
+            document.getElementById("aOutput").innerHTML = "<a href='https://example.com'>" + userInput + "</a>";
+            if (userInput.includes("<a href=") && userInput.includes("</a>")) {
+                document.getElementById("correctA").style.display = "block";
+                document.getElementById("nextA").style.display = "block";
+                document.getElementById("wrongA").style.display = "none";
+                document.getElementById("aOutput").style.display = "block";
+            } else {
+                document.getElementById("wrongA").style.display = "block";
+                document.getElementById("correctA").style.display = "none";
+                document.getElementById("nextA").style.display = "none";
+                document.getElementById("aOutput").style.display = "none";
+            }
+        }
+
+        function nextA() {
+          document.getElementById("step3").style.display = "none";
+          document.getElementById("step4").style.display = "block";
+        }
+
+        function checkImg() {
+    const userInput = document.getElementById("imgInput").value;
+    // Instead of just setting the innerHTML, directly create an image element
+    const outputDiv = document.getElementById("imgOutput");
+    outputDiv.innerHTML = ""; // Clear previous output
+
+    // Check if the user input contains valid <img src> tags
+    if (userInput.includes("<img src=") && userInput.includes(">")) {
+        const imageElement = document.createElement("img");
+        const srcValue = userInput.match(/<img src="([^"]+)"/); // Extract src value
+        if (srcValue && srcValue[1]) {
+            imageElement.src = srcValue[1]; // Set the image src from user input
+            imageElement.alt = "User image"; // Add alt text as fallback
+
+            outputDiv.appendChild(imageElement); // Append the image to the output div
+        }
+        // Show success message and the next button
+        document.getElementById("correctImg").style.display = "block";
+        document.getElementById("nextImg").style.display = "block";
+        document.getElementById("wrongImg").style.display = "none";
+        document.getElementById("imgOutput").style.display = "block";
+    } else {
+        document.getElementById("wrongImg").style.display = "block";
+        document.getElementById("correctImg").style.display = "none";
+        document.getElementById("nextImg").style.display = "none";
+        document.getElementById("imgOutput").style.display = "none";
+    }
+}
+
+        function nextImg() {
+          document.getElementById("step4").style.display = "none";
+          document.getElementById("quiz").style.display = "block";
+        }
+
+        function checkQuiz() {
+            let score = 0;
+            const quiz1 = document.getElementById("quiz1").value;
+            const quiz2 = document.getElementById("quiz2").value;
+            const quiz3 = document.getElementById("quiz3").value;
+            const quiz4 = document.getElementById("quiz4").value;
+            const quiz5 = document.getElementById("quiz5").value;
+            const quiz6 = document.getElementById("quiz6").value;
+            const quiz7 = document.getElementById("quiz7").value;
+            const quiz8 = document.getElementById("quiz8").value;
+
+            if (quiz1 === "correct") score++;
+            if (quiz2 === "correct") score++;
+            if (quiz3 === "correct") score++;
+            if (quiz4 === "correct") score++;
+            if (quiz5 === "correct") score++;
+            if (quiz6 === "correct") score++;
+            if (quiz7 === "correct") score++;
+            if (quiz8 === "correct") score++;
+
+            document.getElementById("scoreDisplay").textContent = score;
+            document.getElementById("quiz").style.display = "none";
+            document.getElementById("endPage").style.display = "block";
+            document.getElementById("resetButton").style.display = "none";
+        }
+
+        function resetLearning() {
+            document.getElementById("endPage").style.display = "none";
+            document.getElementById("intro").style.display = "block";
+            document.getElementById("quiz").style.display = "none";
+            document.getElementById("step1").style.display = "none";
+            document.getElementById("step2").style.display = "none";
+            document.getElementById("step3").style.display = "none";
+            document.getElementById("step4").style.display = "none";
+            document.getElementById("resetButton").style.display = "none";
+
+            document.getElementById("h1Input").value = "";
+            document.getElementById("pInput").value = "";
+            document.getElementById("aInput").value = "";
+            document.getElementById("imgInput").value = "";
+
+            document.getElementById("wrongH1").style.display = "none";
+            document.getElementById("correctH1").style.display = "none";
+            document.getElementById("nextH1").style.display = "none";
+            document.getElementById("h1Output").style.display = "none";
+
+            document.getElementById("wrongP").style.display = "none";
+            document.getElementById("correctP").style.display = "none";
+            document.getElementById("nextP").style.display = "none";
+            document.getElementById("pOutput").style.display = "none";
+
+            document.getElementById("wrongA").style.display = "none";
+            document.getElementById("correctA").style.display = "none";
+            document.getElementById("nextA").style.display = "none";
+            document.getElementById("aOutput").style.display = "none";
+
+            document.getElementById("wrongImg").style.display = "none";
+            document.getElementById("correctImg").style.display = "none";
+            document.getElementById("nextImg").style.display = "none";
+            document.getElementById("imgOutput").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

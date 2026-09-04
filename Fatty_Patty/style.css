@@ -1,0 +1,159 @@
+/* Dark mode for body */
+body {
+    background-color: #121212; /* dark background */
+    color: #e0e0e0;            /* light text */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 40px;             /* spacing around the page */
+}
+
+/* Add spacing between all divs */
+div {
+    margin-bottom: 20px;       /* space between each div */
+}
+
+/* Style all buttons */
+button {
+    background-color: #1f1f1f; /* dark button */
+    color: #e0e0e0;            /* light text */
+    border: 1px solid #333;    /* subtle border */
+    padding: 12px 24px;        /* button padding */
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #333;    /* slightly lighter on hover */
+}
+
+.hidden_button {
+    color: transparent;
+    background-color: transparent;
+    border: none;
+}
+
+.hidden_button:hover {
+    color: #e0e0e0;
+    border: 1px solid #333;
+}
+
+#grillContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 8 columns */
+    grid-template-rows: repeat(2, 1fr);    /* 2 rows */
+    gap: 10px;
+    width: 500px;
+    height: 200px;
+    border: 1px solid #333;
+    padding: 10px;
+}
+
+.grill-spot {
+    background-color: #1f1f1f; /* match button style */
+    border: 1px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 12px;
+    color: #e0e0e0;
+    transition: background-color 0.2s;
+}
+
+.grill-spot:hover {
+    background-color: #333; /* match button hover */
+}
+
+.progress-bar {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    height: 8px;
+    background-color: orange;
+    width: 0%;
+    border-radius: 4px;
+}
+
+.grill-status {
+    font-size: 10px;
+    text-align: center;
+}
+
+#computerScreen {
+    background-color: rgb(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#computerScreenTop {
+    background-color: #1f1f1f;
+    border: 5px solid #333;
+    width: 800px;
+    height: 600px;
+    position: fixed;     /* Gebruik fixed zodat hij boven alles blijft */
+    z-index: 1001;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* centreren */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.close_button {
+    background-color: darkred;
+}
+
+.close_button:hover {
+    background-color: rgb(150, 42, 42);
+}
+
+#shopScreen {
+    display: none;
+}
+
+#storageScreen {
+    display: none;
+}
+
+#newOrders, #pendingOrders {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+    height: 210px;
+    background-color: #1f1f1f;
+    padding: 10px;
+    margin-bottom: 0;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.order strong {
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.order button {
+    margin-top: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    width: 80%;
+}

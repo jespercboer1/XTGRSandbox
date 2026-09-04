@@ -1,0 +1,16 @@
+4/9/2026
+- updated style of utility buttons
+- moved task manager to projects
+- added register and login buttons
+
+24/10/2025
+- made ToDo.txt and Changelogs.txt
+- added status and version info to project buttons
+- put acceseble Changelogs and ToDo in the info panel
+- recenterd icons on top right buttons
+- updated info and help text
+
+before 24/10/2025
+- made project menu with clickeble projects
+- made buttons for ToDo.txt and Changelogs.txt per project
+- made help and info screens

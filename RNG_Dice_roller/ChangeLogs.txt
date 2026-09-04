@@ -1,0 +1,27 @@
+26/10/2025
+- added more translations
+- added france and german achievemnt support
+- fixed reset button
+- added click me to chow dice can be clicked, goes sway after dice is clicked
+
+25/10/2024
+- made rollcooldown bar full rol button length
+- added global multiplier to the right side of the dice
+- moved extra dice upgrade to a global upgrade menu
+- added upgrade to global multiplier
+- added dutch achievments support
+- added Power Overwhelming! achievemnt
+
+24/10/2024
+- made Changelogs.txt
+
+before 24/10/2025
+- made dice
+- made upgrade panel and upgrade functionality
+- made roll dice functiuonality
+- made extra dice upgrade
+- made menu panel
+- made achievements
+- made stats page
+- made settings page with reset and language
+- made save button

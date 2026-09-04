@@ -1,0 +1,506 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="CarClicker.css">
+  <link rel="icon" href="Images/Car.png">
+  <title>Car clicker</title>  
+  <script>
+
+    var counter = parseFloat(localStorage.getItem('counter')) || 0;
+    var multiplierCount = parseFloat(localStorage.getItem('multiplierCount')) || 0;
+    var autoclickerCount = parseFloat(localStorage.getItem('autoclickerCount')) || 0;
+    var driverCount = parseFloat(localStorage.getItem('driverCount')) || 0;
+    var garageCount = parseFloat(localStorage.getItem('garageCount')) || 0;
+    var mineCount = parseFloat(localStorage.getItem('mineCount')) || 0;
+    var factoryCount = parseFloat(localStorage.getItem('factoryCount')) || 0;
+    var dealershipCount = parseFloat(localStorage.getItem('dealershipCount')) || 0;
+    var franchiseCount = parseFloat(localStorage.getItem('franchiseCount')) || 0;
+    var trainingCount = parseFloat(localStorage.getItem('trainingCount')) || 0;
+    var scrapPerSecond = parseFloat(localStorage.getItem('scrapPerSecond')) || 0;
+    var multiplierPrice = localStorage.getItem('multiplierPrice') !== null ? parseFloat(localStorage.getItem('multiplierPrice')) : 500;
+    var trainingPrice = localStorage.getItem('trainingPrice') !== null ? parseFloat(localStorage.getItem('trainingPrice')) : 1000;
+    var autoclickerPrice = localStorage.getItem('autoclickerPrice') !== null ? parseFloat(localStorage.getItem('autoclickerPrice')) : 10;
+    var driverPrice = localStorage.getItem('driverPrice') !== null ? parseFloat(localStorage.getItem('driverPrice')) : 100;
+    var garagePrice = localStorage.getItem('garagePrice') !== null ? parseFloat(localStorage.getItem('garagePrice')) : 1100;
+    var minePrice = localStorage.getItem('minePrice') !== null ? parseFloat(localStorage.getItem('minePrice')) : 12000;
+    var factoryPrice = localStorage.getItem('factoryPrice') !== null ? parseFloat(localStorage.getItem('factoryPrice')) : 130000;
+    var dealershipPrice = localStorage.getItem('dealershipPrice') !== null ? parseFloat(localStorage.getItem('dealershipPrice')) : 1400000;
+    var franchisePrice = localStorage.getItem('franchisePrice') !== null ? parseFloat(localStorage.getItem('franchisePrice')) : 2e7;
+
+    window.onload = function() {
+
+    // Function to format large numbers
+    function formatLargeNumber(number) {
+      if (!isNaN(number)) {
+        if (number >= 1e15) {
+          return (number / 1e15).toFixed(3) + " aa";
+        } else if (number >= 1e12) {
+          return (number / 1e12).toFixed(3) + " trillion";
+        } else if (number >= 1e9) {
+          return (number / 1e9).toFixed(3) + " billion";
+        } else if (number >= 1e6) {
+          return (number / 1e6).toFixed(3) + " million";
+        } else if (number >= 1e3) {
+          return (number / 1e3).toFixed(3);
+        } else {
+          return number.toLocaleString('en-US', { maximumFractionDigits: 0 });
+        }
+      } else {
+        console.error("Invalid number:", number);
+        return "Invalid Number";
+      }
+    }
+
+    // Function to update scrap per second display
+    function updateSPS() {
+      setElementInnerHTML('counterDisplay', formatLargeNumber(counter.toFixed(0)));
+      setElementInnerHTML('multiplierCountDisplay', multiplierCount.toFixed(0));
+      setElementInnerHTML('autoclickerCountDisplay', autoclickerCount.toFixed(0));
+      setElementInnerHTML('driverCountDisplay', driverCount.toFixed(0));
+      setElementInnerHTML('garageCountDisplay', garageCount.toFixed(0));
+      setElementInnerHTML('mineCountDisplay', mineCount.toFixed(0));
+      setElementInnerHTML('factoryCountDisplay', factoryCount.toFixed(0));
+      setElementInnerHTML('dealershipCountDisplay', dealershipCount.toFixed(0));
+      setElementInnerHTML('franchiseCountDisplay', franchiseCount.toFixed(0));
+      setElementInnerHTML('trainingCountDisplay', trainingCount.toFixed(0));
+
+      // Update SPS display
+      setElementInnerHTML('spsDisplay', "SPS: " + scrapPerSecond.toFixed(1));
+    }
+
+    function setElementInnerHTML(elementId, value) {
+      var element = document.getElementById(elementId);
+      if (element) {
+        element.innerHTML = value;
+      }
+    }
+
+      // Function to handle click on carImage
+      document.getElementById('carImage').onclick = function () {
+        counter += Math.pow(2, multiplierCount);
+        setElementInnerHTML('counterDisplay', formatLargeNumber(counter.toFixed(0)));
+        localStorage.setItem('counter', counter);
+      };
+
+      // Function to handle click on multiplier
+      document.getElementById('multiplierButton').addEventListener('click', function() {
+        if (counter >= multiplierPrice) {
+          multiplierCount++;
+          counter -= multiplierPrice;
+          multiplierPrice *= 10;
+          scrapPerSecond *= 2;
+          updateSPS();
+          localStorage.setItem('counter', counter);
+          localStorage.setItem('multiplierCount', multiplierCount);
+          localStorage.setItem('multiplierPrice', multiplierPrice);
+          localStorage.setItem('scrapPerSecond', scrapPerSecond);
+          setElementInnerHTML('multiplierPrice', "Price: " + formatLargeNumber(multiplierPrice.toFixed(0)) + " scraps");
+        } else {
+          alert("You need at least " + multiplierPrice.toFixed(0) + " scraps to purchase a multiplier.");
+        }
+      });
+
+      // Function to handle click on training
+      document.getElementById('trainingButton').addEventListener('click', function() {
+        if (counter >= trainingPrice) {
+          trainingCount++;
+          counter -= trainingPrice;
+          trainingPrice *= 10;
+          // Verhoog de scrap per second van de drivers
+          scrapPerSecond += driverCount * 2; // Verhoog elke driver met 1 sps
+          updateSPS();
+          localStorage.setItem('counter', counter);
+          localStorage.setItem('trainingCount', trainingCount);
+          localStorage.setItem('trainingPrice', trainingPrice);
+          localStorage.setItem('scrapPerSecond', scrapPerSecond);
+          setElementInnerHTML('trainingPrice', "Price: " + formatLargeNumber(trainingPrice.toFixed(0)) + " scraps");
+        } else {
+          alert("You need at least " + trainingPrice.toFixed(0) + " scraps to get training, stupid.");
+        }
+      });
+
+      
+      // Function to handle click on autoclicker
+      document.getElementById('autoclickerButton').addEventListener('click', function() {
+        if (counter >= autoclickerPrice) {
+          autoclickerCount++;
+          scrapPerSecond += 0.1;
+          counter -= autoclickerPrice;
+          autoclickerPrice *= 1.1;
+          setElementInnerHTML('counterDisplay', formatLargeNumber(counter.toFixed(0)));
+          updateSPS();
+          localStorage.setItem('counter', counter);
+          localStorage.setItem('autoclickerCount', autoclickerCount);
+          localStorage.setItem('scrapPerSecond', scrapPerSecond);
+          localStorage.setItem('autoclickerPrice', autoclickerPrice);
+          setElementInnerHTML('autoclickerCountDisplay', autoclickerCount.toFixed(0));
+          setElementInnerHTML('autoclickerPrice', "Price: " + formatLargeNumber(autoclickerPrice.toFixed(0)) + " scraps");
+        } else {
+          alert("You need at least " + autoclickerPrice.toFixed(0) + " scraps to purchase an autoclicker.");
+        }
+      });
+
+      // Function to handle click on driver
+      document.getElementById('driverButton').addEventListener('click', function() {
+        if (counter >= driverPrice) {
+          driverCount++;
+          scrapPerSecond += 1;
+          counter -= driverPrice;
+          driverPrice *= 1.1;
+          setElementInnerHTML('counterDisplay', formatLargeNumber(counter.toFixed(0)));
+          updateSPS();
+          localStorage.setItem('counter', counter);
+          localStorage.setItem('driverCount', driverCount);
+          localStorage.setItem('scrapPerSecond', scrapPerSecond);
+          localStorage.setItem('driverPrice', driverPrice);
+          setElementInnerHTML('driverCountDisplay', driverCount.toFixed(0));
+          setElementInnerHTML('driverPrice', "Price: " + formatLargeNumber(driverPrice.toFixed(0)) + " scraps");
+        } else {
+          alert("You need at least " + driverPrice.toFixed(0) + " scraps to hire a driver.");
+        }
+      });
+
+      // Function to handle click on garage
+      document.getElementById('garageButton').addEventListener('click', function() {
+        if (counter >= garagePrice) {
+          garageCount++;
+          scrapPerSecond += 8;
+          counter -= garagePrice;
+          garagePrice *= 1.1;
+          setElementInnerHTML('counterDisplay', formatLargeNumber(counter.toFixed(0)));
+          updateSPS();
+          localStorage.setItem('counter', counter);
+          localStorage.setItem('garageCount', garageCount);
+          localStorage.setItem('scrapPerSecond', scrapPerSecond);
+          localStorage.setItem('garagePrice', garagePrice);
+          setElementInnerHTML('garageCountDisplay', garageCount.toFixed(0));
+          setElementInnerHTML('garagePrice', "Price: " + formatLargeNumber(garagePrice.toFixed(0)) + " scraps");
+        } else {
+          alert("You need at least " + garagePrice.toFixed(0) + " scraps to build a garage.");
+        }
+      });
+
+      // Function to handle click on mine
+      document.getElementById('mineButton').addEventListener('click', function() {
+        if (counter >= minePrice) {
+          mineCount++;
+          scrapPerSecond += 48;
+          counter -= minePrice;
+          minePrice *= 1.1;
+          setElementInnerHTML('counterDisplay', formatLargeNumber(counter.toFixed(0)));
+          updateSPS();
+          localStorage.setItem('counter', counter);
+          localStorage.setItem('mineCount', mineCount);
+          localStorage.setItem('scrapPerSecond', scrapPerSecond);
+          localStorage.setItem('minePrice', minePrice);
+          setElementInnerHTML('mineCountDisplay', mineCount.toFixed(0));
+          setElementInnerHTML('minePrice', "Price: " + formatLargeNumber(minePrice.toFixed(0)) + " scraps");
+        } else {
+          alert("You need at least " + minePrice.toFixed(0) + " scraps to build a Mine.");
+        }
+      });
+
+      // Function to handle click on factory
+      document.getElementById('factoryButton').addEventListener('click', function() {
+        if (counter >= factoryPrice) {
+          factoryCount++;
+          scrapPerSecond += 260;
+          counter -= factoryPrice;
+          factoryPrice *= 1.1;
+          setElementInnerHTML('counterDisplay', formatLargeNumber(counter.toFixed(0)));
+          updateSPS();
+          localStorage.setItem('counter', counter);
+          localStorage.setItem('factoryCount', factoryCount);
+          localStorage.setItem('scrapPerSecond', scrapPerSecond);
+          localStorage.setItem('factoryPrice', factoryPrice);
+          setElementInnerHTML('factoryCountDisplay', factoryCount.toFixed(0));
+          setElementInnerHTML('factoryPrice', "Price: " + formatLargeNumber(factoryPrice.toFixed(0)) + " scraps");
+        } else {
+          alert("You need at least " + factoryPrice.toFixed(0) + " scraps to build a car factory.");
+        }
+      });
+
+      // Function to handle click on dealership
+      document.getElementById('dealershipButton').addEventListener('click', function() {
+        if (counter >= dealershipPrice) {
+          dealershipCount++;
+          scrapPerSecond += 1400;
+          counter -= dealershipPrice;
+          dealershipPrice *= 1.1;
+          setElementInnerHTML('counterDisplay', formatLargeNumber(counter.toFixed(0)));
+          updateSPS();
+          localStorage.setItem('counter', counter);
+          localStorage.setItem('dealershipCount', dealershipCount);
+          localStorage.setItem('scrapPerSecond', scrapPerSecond);
+          localStorage.setItem('dealershipPrice', dealershipPrice);
+          setElementInnerHTML('dealershipCountDisplay', dealershipCount.toFixed(0));
+          setElementInnerHTML('dealershipPrice', "Price: " + formatLargeNumber(dealershipPrice.toFixed(0)) + " scraps");
+        } else {
+          alert("You need at least " + dealershipPrice.toFixed(0) + " scraps to build a car dealership.");
+        }
+      });
+
+      // Function to handle click on franchise
+      document.getElementById('franchiseButton').addEventListener('click', function() {
+        if (counter >= franchisePrice) {
+          franchiseCount++;
+          scrapPerSecond += 7800;
+          counter -= franchisePrice;
+          franchisePrice *= 1.1;
+          setElementInnerHTML('counterDisplay', formatLargeNumber(counter.toFixed(0)));
+          updateSPS();
+          localStorage.setItem('counter', counter);
+          localStorage.setItem('franchiseCount', franchiseCount);
+          localStorage.setItem('scrapPerSecond', scrapPerSecond);
+          localStorage.setItem('franchisePrice', franchisePrice);
+          setElementInnerHTML('franchiseCountDisplay', franchiseCount.toFixed(0));
+          setElementInnerHTML('franchisePrice', "Price: " + formatLargeNumber(franchisePrice.toFixed(0)) + " scraps");
+        } else {
+          alert("You need at least " + franchisePrice.toFixed(0) + " scraps to get permission for a car franchise.");
+        }
+      });
+
+      // Function to update scrap per second
+      setInterval(function () {
+        counter += scrapPerSecond / 50; // frames per second (50 in this case)
+        setElementInnerHTML('counterDisplay', formatLargeNumber(counter.toFixed(0)));
+        updateSPS();  // Call updateSPS to update other elements
+        localStorage.setItem('counter', counter);
+      }, 20); // 1000 divided by the frames per second (1000 / 50 = 20)
+        
+      // Function to handle reset button click
+      document.getElementById('resetButton').onclick = function() {
+        if (confirm("Are you sure you want to reset?")) {
+          // Reset local storage and counter display
+          localStorage.removeItem('counter');
+          localStorage.removeItem('multiplierCount');
+          localStorage.removeItem('autoclickerCount');
+          localStorage.removeItem('driverCount');
+          localStorage.removeItem('garageCount');
+          localStorage.removeItem('mineCount');
+          localStorage.removeItem('factoryCount');
+          localStorage.removeItem('dealershipCount');
+          localStorage.removeItem('franchiseCount');
+          localStorage.removeItem('trainingCount');
+          counter = 0;
+          scrapPerSecond = 0;
+          multiplierCount = 0;
+          autoclickerCount = 0;
+          driverCount = 0;
+          garageCount = 0;
+          mineCount = 0;
+          factoryCount = 0;
+          dealershipCount = 0;
+          franchiseCount = 0;
+          trainingCount = 0;
+          multiplierPrice = 500;
+          trainingPrice = 1000;
+          autoclickerPrice = 10;
+          driverPrice = 100;
+          garagePrice = 1100;
+          minePrice = 12000;
+          factoryPrice = 130000;
+          dealershipPrice = 1400000;
+          franchisePrice = 2e7;
+          setElementInnerHTML('counterDisplay', "" + counter.toFixed(0));
+          setElementInnerHTML('multiplierCountDisplay', multiplierCount.toFixed(0));
+          setElementInnerHTML('autoclickerCountDisplay', autoclickerCount.toFixed(0));
+          setElementInnerHTML('driverCountDisplay', driverCount.toFixed(0));
+          setElementInnerHTML('garageCountDisplay', garageCount.toFixed(0));
+          setElementInnerHTML('mineCountDisplay', mineCount.toFixed(0));
+          setElementInnerHTML('factoryCountDisplay', factoryCount.toFixed(0));
+          setElementInnerHTML('dealershipCountDisplay', dealershipCount.toFixed(0));
+          setElementInnerHTML('franchiseCountDisplay', franchiseCount.toFixed(0));
+          setElementInnerHTML('trainingCountDisplay', trainingCount.toFixed(0));
+          updateSPS();
+          // Update local storage after reset
+          localStorage.setItem('counter', counter);
+          localStorage.setItem('multiplierCount', multiplierCount);
+          localStorage.setItem('autoclickerCount', autoclickerCount);
+          localStorage.setItem('driverCount', driverCount);
+          localStorage.setItem('garageCount', garageCount);
+          localStorage.setItem('mineCount', mineCount);
+          localStorage.setItem('factoryCount', factoryCount);
+          localStorage.setItem('dealershipCount', dealershipCount);
+          localStorage.setItem('franchiseCount', franchiseCount);
+          localStorage.setItem('trainingCount', trainingCount);
+          localStorage.setItem('scrapPerSecond', scrapPerSecond);
+          localStorage.setItem('multiplierPrice', multiplierPrice);
+          localStorage.setItem('autoclickerPrice', autoclickerPrice);
+          localStorage.setItem('driverPrice', driverPrice);
+          localStorage.setItem('garagePrice', garagePrice);
+          localStorage.setItem('minePrice', minePrice);
+          localStorage.setItem('factoryPrice', factoryPrice);
+          localStorage.setItem('dealershipPrice', dealershipPrice);
+          localStorage.setItem('franchisePrice', franchisePrice);
+          localStorage.setItem('trainingPrice', trainingPrice);
+        }
+      };
+
+      // Function for secret button (between help and reset)
+      document.getElementById('secretButton').onclick = function() {
+        if (confirm("Are you sure you want to click the secret button?")) {
+            counter += 1e15;
+        }
+      };
+    };
+
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+
+  <div class="right">
+    <div class="Buttons">
+      <a href="index.php"><div class="Back"><p>Back to login</p></div></a>
+      <p> </p>
+      <a href="#" id="resetButton"><div class="Reset"><p>Reset</p></div></a>
+      <p> </p>
+      <a onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'"><div class="Help"><p>Help</p></div></a>
+      <p></p>
+      <a href="#" id="secretButton"><div class="Secret"><p>Secret</p></div></a>
+    </div>
+
+    <div class="Upgrades">
+    <div class="MouseUpgardes" id="mouseupgardes">
+      <div class="Multiplier" id="multiplierButton">
+        <img src="Images/MultyCursor.png" alt="multycursor-img" class="multycursor-img">
+        <p id="title">SPS Multiplier</p><br>
+        <p id="multiplierPrice">Price: 500 scraps</p>
+      </div>
+    </div>
+
+    <div class="training" id="trainingButton">
+      <img src="Images/training.png" alt="training-img" class="training-img">
+      <p id="title">training</p><br>
+      <p id="trainingPrice">Price: 1000 scraps</p>
+    </div>
+
+
+    <div class="autoclicker" id="autoclickerButton">
+      <img src="Images/cursor.png" alt="autoclicker-img" class="autoclicker-img">
+      <p id="title">Autoclicker</p>
+      <p id="subtitle">&nbsp;&nbsp;&nbsp;(+ 0.1 sps)</p>
+      <p id="autoclickerPrice">Price: 10 scraps</p>
+      <p>Owned: <span id="autoclickerCountDisplay">0</span></p>
+    </div>
+
+    <div class="driver" id="driverButton">
+      <img src="Images/driver.png" alt="driver-img" class="driver-img">
+      <p id="title">Driver</p>
+      <p id="subtitle">&nbsp;&nbsp;&nbsp;(+ 1 sps)</p>
+      <p id="driverPrice">Price: 100 scraps</p>
+      <p>Owned: <span id="driverCountDisplay">0</span></p>
+    </div>
+
+    <div class="garage" id="garageButton">
+      <img src="Images/Garage.png" alt="driver-img" class="driver-img">
+      <p id="title">garage</p>
+      <p id="subtitle">&nbsp;&nbsp;&nbsp;(+ 8 sps)</p>
+      <p id="garagePrice">Price: 1100 scraps</p>
+      <p>Owned: <span id="garageCountDisplay">0</span></p>
+    </div>
+
+    <div class="mine" id="mineButton">
+      <img src="Images/Mine.png" alt="mine-img" class="mine-img">
+      <p id="title">Mine</p>
+      <p id="subtitle">&nbsp;&nbsp;&nbsp;(+ 48 sps)</p>
+      <p id="minePrice">Price: 12000 scraps</p>
+      <p>Owned: <span id="mineCountDisplay">0</span></p>
+    </div>
+
+    <div class="factory" id="factoryButton">
+      <img src="Images/Factory.png" alt="factory-img" class="factory-img">
+      <p id="title">Factory</p>
+      <p id="subtitle">&nbsp;&nbsp;&nbsp;(+ 260 sps)</p>
+      <p id="factoryPrice">Price: 130000 scraps</p>
+      <p>Owned: <span id="factoryCountDisplay">0</span></p>
+    </div>
+
+    <div class="dealership" id="dealershipButton">
+      <img src="Images/dealership.png" alt="dealership-img" class="dealership-img">
+      <p id="title">Dealership</p> <br>
+      <p id="subtitle">(+ 1.400 sps)</p>
+      <p id="dealershipPrice">Price: 1,400 million scraps</p>
+      <p>Owned: <span id="dealershipCountDisplay">0</p>
+    </div>
+
+    <div class="franchise" id="franchiseButton">
+      <img src="Images/franchise.png" alt="franchise-img" class="franchise-img">
+      <p id="title">franchise</p>
+      <p id="subtitle">&nbsp;&nbsp;&nbsp;(+ 7.800 sps)</p>
+      <p id="franchisePrice">Price: 20 million scraps</p>
+      <p>Owned: <span id="franchiseCountDisplay">0</span></p>
+    </div>
+
+  </div> <!-- end right !-->
+  </div> <!-- end wrapper !-->
+
+    <div class="left">
+      <br>
+      <p>Owned Scrap:</p>
+      <p id="counterDisplay"></p>
+      <br>
+      <p id="spsDisplay">SPS: 0</p>
+      <div class="counter-container">
+        <img src="Images/Car.png" alt="Click_Me-img" class="Car-img" id="carImage">
+      </div>
+    </div>
+
+  <div class="filler"></div>
+
+  <div id="light" class="white_content">
+    <p>The goal of this game is to accumulate as many scraps as possible by clicking the car and purchasing upgrades.</p> <br>
+    <p>Click the car to earn scraps. Use your scraps to purchase upgrades. Each upgrade increases your Scraps Per Second (SPS), allowing you to earn more scraps automatically. Upgrade prices increase by 10% with each purchase. As you accumulate more scraps, invest in higher-priced upgrades for greater SPS gains.</p> <br>
+    <p>Press the restart button if you wish to start from scratch and challenge yourself anew.</p> <br>
+    <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
+  </div>
+  <div id="fade" class="black_overlay"></div>
+
+  </div>
+
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KattenNamen - Koppelen duo</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f2f2;
+        }
+
+        header {
+            background: #4CAF50;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            flex: 1;
+        }
+
+        nav a {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background: #43a047;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .card h1,
+        .card h2 {
+            margin-top: 0;
+        }
+
+        #cat-list,
+        #preview-list,
+        #my-duos-ul,
+        #all-duos-ul {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        #my-duos-ul,
+        #all-duos-ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #my-duos-ul li,
+        #all-duos-ul li {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #my-duos-ul li {
+            cursor: pointer;
+        }
+
+        #my-duos-ul li.selected {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #b91c1c;
+        }
+
+        #my-duos-ul li .delete-btn {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #my-duos-ul li.selected .delete-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .name-chip {
+            padding: 10px 14px;
+            border: 1px solid #b9c9b9;
+            border-radius: 8px;
+            background: #f7f9f7;
+            color: #1f3b1f;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .name-chip.selected {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .preview-wrapper {
+            margin-bottom: 16px;
+            padding: 14px;
+            border: 1px solid #cdd9cd;
+            border-radius: 10px;
+            background: #f4f8f4;
+        }
+
+        .preview-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2f5d2f;
+        }
+
+        .preview-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .preview-slot {
+            width: 120px;
+            height: 38px;
+            padding: 0 10px;
+            border: 1px solid #b6c7b6;
+            border-radius: 6px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #1f3b1f;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-sizing: border-box;
+        }
+
+        .preview-slot.long {
+            width: 240px;
+        }
+
+        .preview-slot,
+        .preview-slot:hover,
+        .preview-slot:focus {
+            cursor: default;
+            outline: none;
+        }
+
+        .preview-plus {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2f5d2f;
+            line-height: 1;
+            user-select: none;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .delete-mark {
+            font-size: 18px;
+            font-weight: bold;
+            color: #dc2626;
+            opacity: 0;
+            user-select: none;
+        }
+
+        #my-duos-ul li.selected .delete-mark {
+            opacity: 1;
+        }
+
+        button:hover {
+            background: #43a047;
+        }
+
+        #status {
+            min-height: 24px;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #b91c1c;
+        }
+
+        .success {
+            color: #2e7d32;
+        }
+
+		.muted {
+			color: #666;
+		}
+
+        @media (max-width: 700px) {
+            nav ul {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Andere gebruiker kiezen</a></li>
+                <li><a href="invoeren-individueel.html">Invoeren individuele namen</a></li>
+                <li><a href="voting-individueel.html">Voting individuele namen</a></li>
+                <li><a href="tussenstand.html">Tussenstand</a></li>
+                <li><a href="koppelen-duo.html">Koppelen duo namen</a></li>
+                <li><a href="voting-duo.html">Voting duo namen</a></li>
+                <li><a href="resultaten.html">Resultaten</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+            <h1 id="user"></h1>
+            <p class="muted">Kies twee geselecteerde kattennamen om een duo te maken.</p>
+
+            <div class="preview-wrapper">
+                <label class="preview-label">Duo preview</label>
+                <div class="preview-row">
+                    <div class="preview-slot" id="preview-slot-1"> </div>
+                    <div class="preview-plus">+</div>
+                    <div class="preview-slot" id="preview-slot-2"> </div>
+                </div>
+                <div class="preview-actions">
+                    <button onclick="generateDuo()">Genereer duo naam</button>
+                </div>
+            </div>
+
+            <div id="cat-list"></div>
+            <div id="status"></div>
+        </div>
+
+        <div class="card">
+            <h2>Jouw duo's</h2>
+			<p class="muted">Verwijder een duo door er 2 keer op te klikken.</p>
+            <ul id="my-duos-ul"></ul>
+        </div>
+
+        <div class="card">
+            <h2>Alle duo's</h2>
+            <ul id="all-duos-ul"></ul>
+        </div>
+    </main>
+
+    <script>
+        const userId = localStorage.getItem("user_id");
+        const username = localStorage.getItem("username");
+
+        if (!userId) {
+            location.href = "index.html";
+        }
+
+        document.getElementById("user").innerText = "Welkom, " + username;
+
+        const selectedCats = [];
+
+        async function loadSelectedCats() {
+            const response = await fetch("api/get_selected_cat_names.php");
+            const cats = await response.json();
+            const container = document.getElementById("cat-list");
+            container.innerHTML = "";
+
+            cats.forEach(cat => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "name-chip";
+                button.innerText = cat.name;
+                button.dataset.catId = cat.cat_name_id;
+
+                button.onclick = () => toggleSelected(cat.cat_name_id, cat.name, button);
+                container.appendChild(button);
+            });
+        }
+
+        async function loadDuoLists() {
+            const myResponse = await fetch("api/get_my_duos.php?user_id=" + userId);
+            const myDuos = await myResponse.json();
+            const myList = document.getElementById("my-duos-ul");
+            myList.innerHTML = "";
+
+            myDuos.forEach(duo => {
+                const li = document.createElement("li");
+                li.dataset.duoId = duo.id;
+
+                const text = document.createElement("span");
+                text.innerText = duo.name_1 + " + " + duo.name_2;
+
+                const deleteMark = document.createElement("span");
+                deleteMark.className = "delete-mark";
+                deleteMark.innerText = "×";
+
+                li.onclick = () => {
+                    if (li.classList.contains("selected")) {
+                        deleteDuo(duo.id);
+                        return;
+                    }
+
+                    li.classList.add("selected");
+                };
+
+                li.appendChild(text);
+                li.appendChild(deleteMark);
+                myList.appendChild(li);
+            });
+
+            const allResponse = await fetch("api/get_duo_names.php");
+            const allDuos = await allResponse.json();
+            const allList = document.getElementById("all-duos-ul");
+            allList.innerHTML = "";
+
+            allDuos.forEach(duo => {
+                const li = document.createElement("li");
+                li.innerText = duo.name_1 + " + " + duo.name_2;
+                allList.appendChild(li);
+            });
+        }
+
+        function clearStatus() {
+            const status = document.getElementById("status");
+            status.innerText = "";
+            status.className = "";
+        }
+
+        function toggleSelected(catId, name, button) {
+            clearStatus();
+            const existingIndex = selectedCats.findIndex(item => item.catId === catId);
+
+            if (existingIndex >= 0) {
+                selectedCats.splice(existingIndex, 1);
+                button.classList.remove("selected");
+            } else {
+                if (selectedCats.length >= 2) {
+                    setStatus("Kies maximaal 2 namen.", "error");
+                    return;
+                }
+
+                selectedCats.push({ catId, name });
+                button.classList.add("selected");
+            }
+
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const slot1 = document.getElementById("preview-slot-1");
+            const slot2 = document.getElementById("preview-slot-2");
+
+            slot1.innerText = "";
+            slot2.innerText = "";
+            slot1.classList.remove("long");
+            slot2.classList.remove("long");
+
+            if (selectedCats.length === 0) {
+                return;
+            }
+
+            if (selectedCats.length === 1) {
+                slot1.innerText = selectedCats[0].name;
+                if (selectedCats[0].name.length > 14) {
+                    slot1.classList.add("long");
+                }
+                return;
+            }
+
+            const orderedCats = [...selectedCats].sort((a, b) => a.catId - b.catId);
+            slot1.innerText = orderedCats[0].name;
+            slot2.innerText = orderedCats[1].name;
+
+            if (orderedCats[0].name.length > 14) {
+                slot1.classList.add("long");
+            }
+
+            if (orderedCats[1].name.length > 14) {
+                slot2.classList.add("long");
+            }
+        }
+
+        function setStatus(message, type = "success") {
+            const status = document.getElementById("status");
+            status.innerText = message;
+            status.className = type;
+        }
+
+        async function generateDuo() {
+            clearStatus();
+
+            if (selectedCats.length !== 2) {
+                setStatus("Kies precies 2 kattennamen om een duo te maken.", "error");
+                return;
+            }
+
+            const orderedCats = [...selectedCats].sort((a, b) => a.catId - b.catId);
+
+            const response = await fetch("api/add_duo_name.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: Number(userId),
+                    cat_name_1: orderedCats[0].catId,
+                    cat_name_2: orderedCats[1].catId
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setStatus(result.message, "success");
+                loadDuoLists();
+            } else {
+                setStatus(result.message, "error");
+            }
+        }
+
+        async function deleteDuo(duoNameId) {
+            const response = await fetch("api/delete_duo_name.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: Number(userId),
+                    duo_name_id: duoNameId
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setStatus(result.message, "success");
+                loadDuoLists();
+            } else {
+                setStatus(result.message, "error");
+            }
+        }
+
+        document.addEventListener("click", function(event) {
+            const clickedDuoItem = event.target.closest("#my-duos-ul li");
+
+            if (!clickedDuoItem) {
+                document.querySelectorAll("#my-duos-ul li.selected").forEach(item => {
+                    item.classList.remove("selected");
+                });
+            }
+        });
+
+        loadSelectedCats();
+        loadDuoLists();
+    </script>
+</body>
+</html>

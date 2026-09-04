@@ -1,0 +1,41 @@
+{
+  "game_title": "🎲 RNG Würfelwerfer",
+  "roll_button": "Würfeln",
+  "save_button": "💾 Spiel Speichern",
+  "stats_button": "📊 Statistiken",
+  "achievements_button": "🏆 Erfolge",
+  "settings_button": "⚙️ Einstellungen",
+
+  "global_upgrades": "⚙️ Globale Upgrades",
+  "total_points": "Gesamtpunkte",
+  "last_roll": "Letzter Wurf",
+
+  "upgrade_menu_title": "Upgrades",
+  "dice_upgrade_menu_title": "Upgrades Würfel",
+  "overlay_stats_title": "Statistiken",
+  "overlay_settings_title": "Einstellungen",
+  "overlay_achievements_title": "Erfolge",
+
+  "overlay_stats_dice": "Anzahl der Würfel",
+  "overlay_stats_total": "Insgesamt Verdient",
+  "reset_button": "♻️ Spiel Zurücksetzen",
+  "reset_confirm": "Bist du sicher, dass du dein Spiel zurücksetzen möchtest? Dadurch wird der gesamte Fortschritt gelöscht!",
+
+  "upgrade_extra_dice": "Zusätzlicher Würfel",
+  "upgrade_global_mult": "Maximaler Globaler Multiplikator",
+  "upgrade_add_dice": "+1 Würfel - Preis:",
+  "upgrade_add_mult": "+1 Max Multiplikator - Preis:",
+
+  "upgrade_multiplier": "Multiplikator",
+  "upgrade_min_value": "Mindestwert",
+  "upgrade_max_value": "Höchstwert",
+  "upgrade_multiplier_button": "Upgrade (+0.1×) - Preis:",
+  "upgrade_min_button": "Upgrade (+1 min) - Preis:",
+  "upgrade_max_button": "Upgrade (+1 max) - Preis:",
+
+  "achievement_unlocked": "✅ Freigeschaltet",
+  "achievement_locked": "🔒 Gesperrt",
+  "achievement_popup_prefix": "🏆",
+
+  "language_select": "Sprache"
+}

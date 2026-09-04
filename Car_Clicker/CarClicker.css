@@ -1,0 +1,405 @@
+/* algemeen */
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 150%;
+  font-family: sans-serif;
+  cursor: default;
+  background-color: #483D3F;
+  user-select: none;
+}
+
+.wrapper {
+  width: 1920px;
+  margin: auto;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Help page/opverlay */
+.black_overlay{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity:.70;
+}
+.white_content {
+    display: none;
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    padding: 16px;
+    border: 16px solid #483D3F;
+    background-color: white;
+    z-index:1002;
+}
+
+
+/* Left */
+.left {
+  background-color: #FFF9ED;
+  width: 70%;
+  height: 100vh;
+  float: left;
+  text-align: center;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7) inset;
+}
+
+#counterDisplay {
+  font-size: 200%;
+}
+
+.counter-container {
+  margin: auto;
+  clear: both;
+}
+
+.Car-img {
+  margin-top: 70px;
+  width: 600px;
+  height: auto;
+}
+
+.Car-img:hover {
+  cursor: pointer;
+}
+
+.left p {
+  line-height: 130%;
+}
+
+
+/* Filler */
+.filler {
+  background-color: #483D3F;
+  float: left;
+  height: 100vh;
+  width: 2%;
+}
+
+
+/* Right */
+.right {
+  background-color: #feeae7;
+  float: right;
+  width: 28%;
+  height: 100vh;
+}
+
+#title {
+  display:inline;
+  float:left;
+  font-size: 140%;
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+
+.Buttons {
+  background-color: #FDE3DF;
+  height: 40px;
+  padding: 30px 0px 30px 0px;
+}
+
+.Back {
+  float: right;
+  width: 160px;
+  height: 40px;
+  margin: 0px 20px 0px 0px;
+  border-radius: 8px;
+  line-height: 40px;
+  background-color: #bdbdbd;
+  text-align: center;
+  cursor: pointer;
+  color: black;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.Back:hover {
+  background-color: #dbdbdb;
+  box-shadow: none;
+}
+
+.Reset {
+  float: right;
+  width: 80px;
+  height: 40px;
+  margin: 0px 10px 0px 0px;
+  border-radius: 8px;
+  line-height: 40px;
+  background-color: #bdbdbd;
+  text-align: center;
+  cursor: pointer;
+  color: black;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.Reset:hover {
+  background-color: #dbdbdb;
+  box-shadow: none;
+}
+
+.Help {
+  float: left;
+  width: 80px;
+  height: 40px;
+  margin: 0px 0px 0px 20px;
+  border-radius: 8px;
+  line-height: 40px;
+  background-color: #bdbdbd;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.Help:hover {
+  background-color: #dbdbdb;
+  box-shadow: none;
+}
+
+.Secret {
+  float: left;
+  width: 150px;
+  height: 40px;
+  margin: 0px 0px 0px 10px;
+  border-radius: 8px;
+  line-height: 40px;
+  text-align: center;
+  cursor: default;
+  color: #FDE3DF;
+}
+
+.Secret:hover {
+  box-shadow: none;
+}
+
+
+.Upgrades {
+  overflow-y: auto;
+  max-height: calc(100vh - 110px);
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7) inset;
+  padding: 0px 0px 10px 0px;
+}
+
+.MouseUpgardes {
+  height: flex;
+  margin: 30px 20px 0px 20px;
+}
+
+.Multiplier {
+  background-color: #058ED9;
+  height: flex;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  line-height: 50px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+  margin-bottom: 18px; /* Ruimte toegevoegd tussen de Multiplier en de Training */
+}
+
+.Multiplier:hover {
+  background-color: #70cbfc;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.multycursor-img {
+  width: auto;
+  height: 80px;
+  background: none;
+  float: right;
+  margin: 10px 30px 10px 0px;
+}
+
+.autoclicker {
+  background-color: #058ED9;
+  height: flex;
+  margin: 30px 20px 20px 20px;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  line-height: 55px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.autoclicker:hover {
+  background-color: #70cbfc;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.autoclicker-img {
+  width: auto;
+  height: 125px;
+  background: none;
+  float: right;
+  margin: 25px 10px 0px 0px;
+}
+
+.driver {
+  background-color: #058ED9;
+  height: flex;
+  margin: 0px 20px 20px 20px;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  line-height: 55px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.driver:hover {
+  background-color: #70cbfc;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.driver-img {
+  width: auto;
+  height: 125px;
+  background: none;
+  float: right;
+  margin: 25px 10px 0px 0px;
+}
+
+.garage {
+  background-color: #058ED9;
+  height: flex;
+  margin: 0px 20px 20px 20px;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  line-height: 55px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.garage:hover {
+  background-color: #70cbfc;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.mine {
+  background-color: #058ED9;
+  height: flex;
+  margin: 0px 20px 20px 20px;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  line-height: 55px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.mine:hover {
+  background-color: #70cbfc;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.mine-img {
+  width: auto;
+  height: 125px;
+  background: none;
+  float: right;
+  margin: 25px 10px 0px 0px;
+}
+
+.factory {
+  background-color: #058ED9;
+  height: flex;
+  margin: 0px 20px 20px 20px;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  line-height: 55px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.factory:hover {
+  background-color: #70cbfc;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.factory-img {
+  width: auto;
+  height: 125px;
+  background: none;
+  float: right;
+  margin: 25px 10px 0px 0px;
+}
+
+.dealership {
+  background-color: #058ED9;
+  height: flex;
+  margin: 0px 20px 20px 20px;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  line-height: 55px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.dealership:hover {
+  background-color: #70cbfc;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.dealership-img {
+  width: auto;
+  height: 90px;
+  background: none;
+  float: right;
+  margin: 25px 10px 0px 0px;
+}
+
+.franchise {
+  background-color: #058ED9;
+  height: flex;
+  margin: 0px 20px 20px 20px;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  line-height: 55px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.franchise:hover {
+  background-color: #70cbfc;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.franchise-img {
+  width: auto;
+  height: 125px;
+  background: none;
+  float: right;
+  margin: 25px 10px 0px 0px;
+}
+
+.training {
+  background-color: #058ED9;
+  height: flex;
+  margin: 18px 20px 20px 20px; /* Aangepast om ruimte toe te voegen boven de Training */
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  line-height: 55px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+.training:hover {
+  background-color: #70cbfc;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.training-img {
+  width: auto;
+  height: 90px;
+  background: none;
+  float: right;
+  margin: 10px 10px 0px 0px; /* Aangepast om ruimte boven de Training afbeelding toe te voegen */
+}

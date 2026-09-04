@@ -1,0 +1,13 @@
+add workstations:
+- grill (make progress bar green when done, add better text hints (% insted of just text, etc), add more text to container to indicate its a grill for patties)
+- counter (for stacing burger)
+- drink machines
+- dessert machines
+- registercounter (for placing items on tray to complete order)
+
+add delay on ordering and delivery to storage
+add storage to computer -> add item amount to workstations
+
+add water bill based on water on orders
+
+add progression
