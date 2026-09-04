@@ -1,0 +1,56 @@
+26/06/2026
+- Initiated project
+- Added the following pages: 
+  Play, Shop, Statistics, Achievements, Leaderboard, Rules, About, Settings
+- Added templates for all pages
+- Added 4 Card styles to assets
+- Made card show logic
+- Made Action logic
+- Made play again logic
+
+27/06/2026
+- Added card flipping animations
+- Added win, lose and tie styles
+
+28/06/2026
+- Redid all logic for game, because of high number of bugs
+- Added anti-autoclicker
+- Made title a button
+- Removed the chance for getting a repeating card
+- Removed image select and drag
+- Added total cards to hand titles, 
+  hidden dealer total when not all cards are revealed
+- Added favicon to all pages
+- Fixed 404 error when navigating to other pages
+- Added profile page
+- Added database for user info and stats
+- Added login and register screens
+- You can update your name and password of you account
+
+29/06/2026
+- Fixed issue where first login would show name: undefined
+- Fixed issue where re-login on another account would show details of first account
+- Added styles to profile page for a modern look
+- Added user creation date to profile view
+- Fixed styles for more consistency between pages
+- Updated section styles for a cleaner look
+- Changed style of buttons to a cleaner look
+- Added a divider line on the profile page for readability
+- Added account based stats for view to the Statistics page
+
+30/06/2026
+- Redid profile storage of Statistics
+- Update style of Statistics page
+- Added categories in Statistics page
+- Added more Statistics calculated from the raw Statistics
+- Added Leaderboard for the following stats:
+  total earned money
+  packs opened
+  games played
+  wins
+  player blackjacks
+  biggest win
+  longest win streak
+- Updated Leaderboard style
+- Added rules page content
+- Added about page content

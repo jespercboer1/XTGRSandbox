@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.png">
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="rules.css">
+</head>
+<body>
+    <header>
+        <h1 id="blackjack-title">Blackjack</h1>
+        <nav>
+            <ul>
+                <li id="play-button">Play</li>
+                <li id="shop-button">Shop</li>
+                <li id="deck-button">Deck</li>
+                <li id="statistics-button">Statistics</li>
+                <li id="achievements-button">Achievements</li>
+                <li id="leaderboard-button">Leaderboard</li>
+                <li id="rules-button" class="selected-nav">Rules</li>
+                <li id="about-button">About</li>
+                <li id="settings-button">Settings</li>
+                <li id="profile-button">Profile</li>
+            </ul>
+            <p id="money">Loading...</p>
+        </nav>
+    </header>
+
+    <main id="main-container">
+        <div class="content_container">
+            <section>
+                <h2>Objective</h2>
+                <div class="section-divider"></div>
+                <p>The goal is to beat the dealer by getting a hand value closer to 21 than the dealer’s hand, without exceeding 21. If your total goes over 21, you bust and automatically lose the round.</p>
+            </section>
+            <section>
+                <h2>Card Values</h2>
+                <div class="section-divider"></div>
+                <ul>
+                    <li>Number cards (2–10): Face value</li>
+                    <li>Jack, Queen, King: 10 points</li>
+                    <li>Ace: 1 or 11 (11, until your hand value is over 21)</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Game Flow</h2>
+                <div class="section-divider"></div>
+                <div class="section-connected">
+                    <p>Each round:</p>
+                    <ul>
+                        <li>You and the dealer are dealt two cards.</li>
+                        <li>One of the dealer’s cards remains hidden until the end of the round.</li>
+                        <li>You choose actions until you stand, bust, or reach 21.</li>
+                        <li>The dealer then plays according to fixed rules.</li>
+                        <li>The winner is determined and the round ends.</li>
+                    </ul>
+                </div>
+                <p>After each round, the deck is reshuffled and a new round begins.</p>
+            </section>
+            <section>
+                <h2>Dealer Rules</h2>
+                <div class="section-divider"></div>
+                <ul>
+                    <li>The dealer draws cards until reaching at least 17.</li>
+                    <li>A configurable rule determines behavior on a soft 17:
+                        <ul>
+                            <li><b>Soft 17 = Hit or Stand (toggle setting)</b></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Player Actions</h2>
+                <div class="section-divider"></div>
+                <div class="section-connected">
+                    <h4>Hit</h4>
+                    <p>Draw another card to increase your total.</p>
+                </div>
+                <div class="section-connected">
+                    <h4>Stand</h4>
+                    <p>Keep your current hand and end your turn.</p>
+                </div>
+                <div class="section-connected">
+                    <h4>Double Down</h4>
+                    <ul>
+                        <li>You may double your bet at any time (no restrictions on hand value).</li>
+                        <li>You receive exactly one additional card and then automatically stand.</li>
+                        <li>Double is allowed after splitting hands.</li>
+                    </ul>
+                </div>
+                <div class="section-connected">
+                    <h4>Split</h4>
+                    <ul>
+                        <li>Allowed once per round when the first two cards have the same value.</li>
+                        <li>Your hand is split into two separate hands.</li>
+                        <li>Each hand is played independently.</li>
+                        <li>Splitting aces is allowed.</li>
+                    </ul>
+                </div>
+                <div class="section-connected">
+                    <h4>Surrender</h4>
+                    <ul>
+                        <li>You may surrender at any time before finishing your turn.</li>
+                        <li>You forfeit your full bet and end the round immediately.</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Blackjack (Natural 21)</h2>
+                <div class="section-divider"></div>
+                <ul>
+                    <li>A blackjack occurs when the first two cards total 21 (Ace + 10-value card).</li>
+                    <li>Blackjack pays 6:5.</li>
+                    <li>If both player and dealer have blackjack, the result is a tie.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Dealer Blackjack</h2>
+                <div class="section-divider"></div>
+                <div class="section-connected">
+                    <p>If the dealer also has a blackjack:</p>
+                    <ul>
+                        <li>Player blackjack results in a tie</li>
+                        <li>Otherwise, the player loses</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Winning Conditions</h2>
+                <div class="section-divider"></div>
+                <div class="section-connected">
+                    <p>You win if:</p>
+                    <ul>
+                        <li>Your total is higher than the dealer’s without busting</li>
+                        <li>The dealer busts (exceeds 21)</li>
+                        <li>You have blackjack and the dealer does not</li>
+                    </ul>
+                </div>
+                <div class="section-connected">
+                    <p>You lose if:</p>
+                    <ul>
+                        <li>You bust</li>
+                        <li>The dealer has a higher valid hand</li>
+                    </ul>
+                </div>
+                <div class="section-connected">
+                    <p>You tie if:</p>
+                    <ul>
+                        <li>Both hands have equal value</li>
+                        <li>Both have blackjack</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Deck Rules</h2>
+                <div class="section-divider"></div>
+                <ul>
+                    <li>Standard 52-card deck is used.</li>
+                    <li>No duplicate cards exist within a single round.</li>
+                    <li>After each round (win, loss, or tie), the deck is fully reshuffled.</li>
+                </ul>
+            </section>
+            <section class="no-title">
+                <p>Core gameplay rules are designed to remain consistent across updates.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer id ="footer-container"></footer>
+
+    <script>
+        const timestamp = Date.now();
+
+        ["../../script.js", "rules.js"].forEach(file => {
+            const script = document.createElement("script");
+            script.src = `${file}?v=${timestamp}`;
+            document.body.appendChild(script);
+        });
+    </script>
+</body>
+</html>

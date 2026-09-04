@@ -1,0 +1,48 @@
+.accent {
+    color: #64b5f6;
+    font-weight: 600;
+}
+
+.score-best {
+    color: #ffd54f;
+    font-weight: 600;
+}
+
+.score-mid {
+    color: #f5f5f5;
+    font-weight: 600;
+}
+
+.score-low {
+    color: #bdbdbd;
+}
+
+.score-bust {
+    color: #e53935;
+    font-weight: 600;
+}
+
+.card-ace {
+    color: #ffd54f;
+    font-weight: 600;
+}
+
+.card-face {
+    color: #b388ff;
+    font-weight: 600;
+}
+
+.action-hit {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.action-stand {
+    color: #ff9800;
+    font-weight: 600;
+}
+
+.nav-item {
+    color: #e0e0e0;
+    font-weight: 600;
+}

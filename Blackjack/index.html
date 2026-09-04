@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+    <title>Blackjack</title>
+
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="pages/play/play.css">
+    <link rel="stylesheet" href="styles/colors.css">
+</head>
+<body>
+    <header>
+        <h1 id="blackjack-title">Blackjack</h1>
+        <nav>
+            <ul>
+                <li id="play-button" class="selected-nav">Play</li>
+                <li id="shop-button">Shop</li>
+                <li id="deck-button">Deck</li>
+                <li id="statistics-button">Statistics</li>
+                <li id="achievements-button">Achievements</li>
+                <li id="leaderboard-button">Leaderboard</li>
+                <li id="rules-button">Rules</li>
+                <li id="about-button">About</li>
+                <li id="settings-button">Settings</li>
+                <li id="profile-button">Profile</li>
+            </ul>
+            <p id="money">Loading...</p>
+        </nav>
+    </header>
+
+    <main id="main-container"></main>
+
+    <footer id="footer-container"></footer>
+
+    <script>
+        const timestamp = Date.now();
+
+        const scripts = [
+            { src: "script.js", module: false },
+            { src: "pages/play/play.js", module: true }
+        ];
+
+        scripts.forEach(file => {
+            const script = document.createElement("script");
+            script.src = `${file.src}?v=${timestamp}`;
+
+            if (file.module) {
+                script.type = "module";
+            }
+
+            document.body.appendChild(script);
+        });
+    </script>
+</body>
+</html>

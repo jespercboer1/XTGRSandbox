@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.png">
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="about.css">
+</head>
+<body>
+    <header>
+        <h1 id="blackjack-title">Blackjack: Chase the Collection</h1>
+        <nav>
+            <ul>
+                <li id="play-button">Play</li>
+                <li id="shop-button">Shop</li>
+                <li id="deck-button">Deck</li>
+                <li id="statistics-button">Statistics</li>
+                <li id="achievements-button">Achievements</li>
+                <li id="leaderboard-button">Leaderboard</li>
+                <li id="rules-button">Rules</li>
+                <li id="about-button" class="selected-nav">About</li>
+                <li id="settings-button">Settings</li>
+                <li id="profile-button">Profile</li>
+            </ul>
+            <p id="money">Loading...</p>
+        </nav>
+    </header>
+
+    <main id="main-container">
+        <div class="content_container">
+            <section>
+                <h2>About Blackjack: Chase the Collection</h2>
+                <div class="section-divider"></div>
+                <p>Blackjack: Chase the Collection is a browser-based Blackjack game built around simplicity, progression, and customization. It is part of a personal games hub hosted on the same domain, alongside other similar projects, but it exists as a standalone experience focused entirely on Blackjack and its systems.</p>
+                <p>The idea for the game came from wanting to build something interactive and functional after seeing Blackjack featured elsewhere. Instead of recreating a standard version of the game, this project was shaped into a more personal interpretation with additional systems layered on top of classic Blackjack gameplay.</p>
+                <p>The core gameplay stays close to traditional Blackjack rules, but the experience is extended with progression-based features such as card pack opening, custom card collection, player statistics, and global leaderboards. These systems are designed to give long-term value beyond individual rounds.</p>
+                <p>What sets this version apart is its focus on customization and clarity rather than presentation. Cards can be unlocked and collected through packs, and player data is tracked in detail through a statistics system. The design choice was intentionally minimal: no heavy animations, no complex visual effects, and no unnecessary distractions—only cards, numbers, and decision-making.</p>
+                <p>The game includes a fully working backend structure with persistent data storage. Player accounts, statistics tracking, and leaderboard data are handled through a database connected via a PHP-based API. All core systems are functional, but are still actively being expanded and adjusted over time. Updates may change mechanics, balance, or features as development continues.</p>
+                <div class="section-connected">
+                    <h4>Core features include:</h4>
+                    <ul>
+                        <li>Standard Blackjack gameplay with rule variations</li>
+                        <li>Card pack system with collectible cards</li>
+                        <li>Persistent player statistics</li>
+                        <li>Leaderboards</li>
+                        <li>Account-based progression system</li>
+                    </ul>
+                </div>
+                <div class="section-connected">
+                    <h4>Custom rule variations include:</h4>
+                    <ul>
+                        <li>Soft 17 rule toggle (configurable)</li>
+                        <li>6:5 payout structure</li>
+                        <li>Double down allowed at any time, including after split</li>
+                        <li>Split allowed once per round</li>
+                        <li>Surrender always allowed</li>
+                        <li>Single 52-card deck with no duplicates</li>
+                        <li>Full deck reset and shuffle after each round</li>
+                    </ul>
+                </div>
+                <p>The project is built using HTML, CSS, JavaScript, PHP, and SQL, running on a hosted server with a phpMyAdmin-managed database.</p>
+                <p>Future development is focused on expanding gameplay depth, improving long-term progression systems, and adding more features that make the game more engaging without shifting away from its simple, clean design philosophy. Large-scale animations or graphical upgrades are not a priority; the focus remains on gameplay and systems.</p>
+            </section>
+            <section>
+                <h2>About the Developer</h2>
+                <div class="section-divider"></div>
+                <p>This project was developed by <label class="creator">XTGR!</label></p>
+                <p>I am a full-stack web developer who mainly builds projects for learning, experimentation, and fun rather than release goals. Blackjack: Chase the Collection is one of those projects where ideas turn into working systems, combining gameplay with backend logic and persistent data.</p>
+                <p>During this project I improved a lot across the full stack, but especially in working with databases and structuring backend systems. Building things like stat tracking, player progression, and API-based communication between the game and server has been one of the biggest learning points for me.</p>
+                <p>My way of developing is pretty iterative: I add features quickly when I have ideas, but I try to keep everything structured and not let the project turn into a mess. I’m constantly balancing adding new things with keeping the code clean enough to maintain and expand later.</p>
+                <p>I mostly work with web technologies. I’ve tried other things like Unity, but it didn’t really click for me. I have done Python projects though, like building a full architecture for a line-following robot with a dashboard and database system, which I did enjoy. Still, web games are where I’m most comfortable and where most of my ideas come from. I usually don’t build things with a strict release plan, I just start when I get inspired and see where it goes.</p>
+                <p>Going forward I want to keep focusing on web-based games and systems. I want to keep improving them and adding new features, but I also know I struggle with finishing projects if they become too big or complex. Because of that, I’ll probably stay around the same level of complexity or slightly more advanced, while still making sure I actually complete what I start.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer id ="footer-container"></footer>
+
+    <script>
+        const timestamp = Date.now();
+
+        ["../../script.js", "about.js"].forEach(file => {
+            const script = document.createElement("script");
+            script.src = `${file}?v=${timestamp}`;
+            document.body.appendChild(script);
+        });
+    </script>
+</body>
+</html>

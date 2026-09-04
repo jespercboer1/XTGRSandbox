@@ -1,0 +1,19 @@
+Blackjack game flow:
+    1. Place your bet.
+    2. Cards are dealt:
+        You get 2 cards.
+        The dealer gets 2 cards (1 face up, 1 face down(depending on difficulty)).
+    3. Check for blackjack:
+        If you have 21 with your first 2 cards, you have blackjack.
+    4. Your turn:
+        Hit → Take another card.
+        Stand → Keep your hand.
+        (Optional in many games: Double Down, Split, Surrender.)
+    5. Dealer's turn:
+        Reveal the hidden card.
+        Draw until reaching at least 17 (following casino rules).
+    6. Determine the winner:
+        If you go over 21, you lose.
+        If the dealer goes over 21, you win.
+        Otherwise, the hand closest to 21 wins.
+        Equal totals = push (tie, your bet is returned).

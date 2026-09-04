@@ -1,0 +1,82 @@
+Settings:
+    select
+        card style
+
+    select
+        back style
+
+    select
+        easy = 2 cards visible
+        normal = 1
+        hard = 0
+
+    switch
+        soft 17 = draw on ace + 6
+
+    switch
+        real values = rank is value (not 13 = 10, but 13 = 13)
+
+    button
+        show intro
+
+    slider
+        dealer total when dealer draws a card
+
+
+Shop:
+    card packs
+        induvidual cards
+
+
+Inventory:
+    all cards
+        stylable with owned styles
+
+
+Stats:
+    add % icon after relevant stats
+
+
+Achievments
+
+
+Leaderboard
+
+
+Rules
+    Update with colors in the text
+
+
+About
+    Update with colors in the text
+
+
+Profile
+
+
+Play:
+    win/defeat screen after animations are done
+
+    actions
+        dubble down
+        split
+        surrender
+
+
+index
+    make nav bar float
+
+
+
+
+
+
+
+
+
+
+
+bugs:
+    cards refresh when navigating to play page, should only refresh when clicking play or clicking play again
+
+    when not logged in, you always see the intro when you refresh or go back to the play page

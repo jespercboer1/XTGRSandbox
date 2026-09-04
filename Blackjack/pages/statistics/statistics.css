@@ -1,0 +1,39 @@
+/* GRID */
+.content_container {
+    flex-direction: column;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 217px);
+    gap: 12px;
+}
+
+/* CARD */
+.stat-card {
+    background: #1b1b1b;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #2a2a2a;
+    transition: 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    border-color: #3a3a3a;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 3px;
+}
