@@ -23,6 +23,8 @@ jobs:
           server-dir: /domains/xtgrsandbox.nl/public_html/
           protocol: ftp
           port: 21
+          state-name: passive
           exclude: |
-            **/.git*
+            **/.git/**
             **/.github/**
+            **/.git*
