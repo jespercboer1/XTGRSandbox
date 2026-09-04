@@ -15,7 +15,8 @@ const games = [
   { name: "Repair Rampage", path: "Repair_Rampage/index.html", rank: "great", status: "Paused", version: "Alpha"},
   { name: "Car Clicker", path: "Car_Clicker/CarClicker.html", rank: "great", status: "Stopped", version: "Alpha"},
   { name: "Blackjack", path: "Blackjack/index.html", rank: "great", status: "In progress", version: "Alpha"},
-  { name: "Kattennamen Systeem", path: "kattennamen_systeem/index.html", rank: "great", status: "Stopped", version: "Finished"}
+  { name: "Kattennamen Systeem", path: "kattennamen_systeem/index.html", rank: "great", status: "Stopped", version: "Finished"},
+  { name: "TaskManager", path: "TaskManager/index.html", rank: "bad", status: "Stopped", version: "Alpha"}
 ];
 
 const rankColors = {
