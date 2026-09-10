@@ -25,19 +25,19 @@ Settings:
 
 Shop:
     card packs
-        induvidual cards
+        individual cards
 
 
 Inventory:
     all cards
-        stylable with owned styles
+        changeable with owned styles 
 
 
 Stats:
     add % icon after relevant stats
 
 
-Achievments
+Achievements
 
 
 Leaderboard
@@ -58,9 +58,13 @@ Play:
     win/defeat screen after animations are done
 
     actions
-        dubble down
+        double down
         split
         surrender
+
+    extra failsafe: if money under min bet, give losers bonus (+100 for example)
+
+    add tokens you can get from Achievements, used to buy packs, money can also buy packs
 
 
 index
@@ -71,12 +75,18 @@ index
 
 
 
-
-
-
-
-
 bugs:
     cards refresh when navigating to play page, should only refresh when clicking play or clicking play again
 
-    when not logged in, you always see the intro when you refresh or go back to the play page
+    numbers (money) don't round up and give very large decimals
+
+
+
+
+
+
+winstreak -> sessionstorage
+^^
+safe current game state to sessionstorage
+
+how to do Achievements??????

@@ -8,19 +8,39 @@ function getCurrentUserId() {
 }
 
 async function loadMoney() {
-    const money = getCurrentUserId();
+    const userId = getCurrentUserId();
 
-    const res = await fetch(`${scriptAPI}/get_money.php?id=${encodeURIComponent(money)}`);
-    const user = await res.json();
+    if (userId) {
+        try {
+            const res = await fetch(`${scriptAPI}/get_money.php?id=${encodeURIComponent(userId)}`);
+            if (!res.ok) throw new Error('Network response was not ok');
+            const user = await res.json();
+            setMoney(user);
+            return;
+        } catch (err) {
+            console.error('Error fetching money for user:', err);
+        }
+    }
 
-    setMoney(user);
+    // If not logged in or fetch failed, use localStorage or default to 1000
+    const stored = localStorage.getItem("money");
+    const amount = stored ? parseInt(stored, 10) : 1000;
+    setMoney(amount);
 }
 
 function setMoney(user) {
     const moneyElement = document.getElementById("money");
-    if (moneyElement) {
-        moneyElement.textContent = `$${user.money.toLocaleString()}`;
+    let amount = 1000;
+    if (user && typeof user === 'object' && 'money' in user) {
+        amount = Number(user.money) || 1000;
+    } else {
+        amount = Number(user) || 1000;
     }
+
+    if (moneyElement) {
+        moneyElement.textContent = `$${amount.toLocaleString()}`;
+    }
+    localStorage.setItem("money", amount);
 }
 
 function go(path) {

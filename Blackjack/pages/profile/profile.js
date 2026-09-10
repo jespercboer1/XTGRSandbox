@@ -144,6 +144,25 @@ function renderProfile(user, message = "", type = "success") {
             </section>
         </div>
     `;
+
+    loadMoney();
+}
+
+async function loadMoney() {
+    const money = getCurrentUserId();
+
+    const res = await fetch(`${scriptAPI}/get_money.php?id=${encodeURIComponent(money)}`);
+    const user = await res.json();
+
+    setMoney(user);
+}
+
+function setMoney(user) {
+    const moneyElement = document.getElementById("money");
+    if (moneyElement) {
+        moneyElement.textContent = `$${user.money.toLocaleString()}`;
+    }
+    localStorage.setItem("money", user.money);
 }
 
 /* =========================
@@ -196,10 +215,14 @@ async function register() {
         return;
     }
 
+    const moneyToSend = localStorage.getItem("money") ?? 1000;
+    const SeenIntroToSend = localStorage.getItem("seenIntro") ?? 0;
+
+
     const res = await fetch(`${API}/register.php`, {
         method: "POST",
         headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, password, money: moneyToSend, seenIntro: SeenIntroToSend })
     });
 
     const data = await res.json();
@@ -288,4 +311,10 @@ async function save() {
 function logout() {
     setCurrentUserId(null);
     renderLogin();
+    const moneyElement = document.getElementById("money");
+    if (moneyElement) {
+        moneyElement.textContent = `$1000`;
+    }
+    localStorage.setItem("money", "1000");
+
 }

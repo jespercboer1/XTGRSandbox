@@ -10,6 +10,8 @@ require "db.php";
 $data = json_decode(file_get_contents("php://input"), true);
 $username = trim($data["username"] ?? "");
 $password = $data["password"] ?? "";
+$money = $data["money"] ?? 1000;
+$seenIntro = $data["seenIntro"] ?? 0;
 
 if ($username === "") {
     echo json_encode(["success" => false, "message" => "Please enter a username."]);
@@ -42,9 +44,6 @@ try {
 
     $userId = $pdo->lastInsertId();
 
-    $stmt = $pdo->prepare("INSERT INTO user_stats (user_id) VALUES (?)");
-    $stmt->execute([$userId]);
-
     $stmt = $pdo->prepare("
         INSERT INTO user_cards (user_id, card_id, quantity)
         SELECT ?, id, 1
@@ -60,6 +59,34 @@ try {
         WHERE style_id = 1
     ");
     $stmt->execute([$userId]);
+
+        // Give starting money via stat system
+    $stmt = $pdo->prepare("
+        INSERT INTO user_stats (user_id, stat_code, value)
+        VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+            value = value + VALUES(value)
+    ");
+
+    $stmt->execute([
+        $userId,
+        "money",
+        $money
+    ]);
+
+        // Give seen intro status
+    $stmt = $pdo->prepare("
+        INSERT INTO user_stats (user_id, stat_code, value)
+        VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+            value = value + VALUES(value)
+    ");
+
+    $stmt->execute([
+        $userId,
+        "seenIntro",
+        $seenIntro
+    ]);
 
     echo json_encode([
         "success" => true,

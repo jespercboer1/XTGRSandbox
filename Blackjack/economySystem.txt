@@ -1,0 +1,71 @@
+Economy System Specification
+Base payouts
+
+Let B be the player's bet.
+
+Outcome	Base payout multiplier
+Loss	            ×0.0
+Tie (Push)	        ×1.0
+Win	                ×2.0
+Natural Blackjack	×2.5
+
+The player's chip balance is updated by:
+
+new_balance = old_balance - B + (B × payout_multiplier)
+
+Examples:
+
+Loss: -B
+Tie: 0
+Win: +B
+Blackjack: +1.5B
+
+
+
+Win Streak
+
+A win streak is the number of consecutive Win or Natural Blackjack results.
+
+Rules:
+
+Initial win multiplier:
+Win:        ×2.0
+Blackjack:  ×2.5
+Every consecutive win after the first:
+Increase multiplier by 0.2
+Maximum multiplier:
+Win:        ×3.0
+Blackjack:  ×3.5
+Any Loss or Tie resets the win streak to zero.
+
+Formula:
+
+win_multiplier = min(2.0 + 0.2 × streak, 3.0)
+blackjack_multiplier = min(2.5 + 0.2 × streak, 3.5)
+
+where streak is the current consecutive win count before applying the payout.
+
+Loss Streak
+
+A loss streak is the number of consecutive Loss results.
+
+Rules:
+
+Initial loss multiplier: ×0.0
+Every consecutive loss after the first:
+Increase multiplier by 0.2
+Maximum multiplier: ×1.0
+Any Win or Tie resets the loss streak to zero.
+
+Formula:
+
+loss_multiplier = min(0.2 × streak, 1.0)
+
+where streak is the current consecutive loss count before applying the payout.
+
+Tie Behavior
+
+A tie (push):
+
+Always returns the original bet (×1.0).
+Resets both the win streak and the loss streak.

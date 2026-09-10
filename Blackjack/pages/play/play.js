@@ -1,5 +1,5 @@
 import { dealCards, drawCard, renderCardImage, checkBlackjack, calculateTotal, dealerDrawCards, resetCards } from "../../js/core.js";
-import { addStat } from "../../js/stats.js";
+import { addStat, addMoney } from "../../js/stats.js";
 
 const API =
     location.hostname === "localhost"
@@ -12,10 +12,17 @@ let seenIntro = 0;
 let isRoundOver = false;
 let gameState;
 let isAnimating = false;
+let betAmount = 0;
+let winMultiplier = 1;
+let lossMultiplier = 0;
 
 async function getSeenIntro() {
     const id = getCurrentUserId();
-    if (!id) return 0;
+    if (!id) {
+        const storedSeenIntro = localStorage.getItem("seenIntro");
+        return storedSeenIntro ? Number(storedSeenIntro) : 0;
+    }
+
 
     const res = await fetch(`${API}/get_seenIntro.php?id=${encodeURIComponent(id)}`);
     const data = await res.json();
@@ -72,7 +79,7 @@ function showIntro() {
                 <section>
                     <h2>Ready to Play?</h2>
                     <p>Click the button below to start.</p>
-                    <button id="play-button" class="btn-primary">Play</button>
+                    <button id="start-play-button" class="btn-primary">Play</button>
                     <br>
                     <p>Or log-in to save your progress!</p>
                     <button id="profile-button" class="btn-secondary">Log-in</button>
@@ -81,6 +88,42 @@ function showIntro() {
             </div>
         </div>
     `;
+}
+
+function showPreGame() {
+    const backCard = { suit: "back", rank: "Blue Stone" }; // Placeholder for dealer's hidden card
+
+    container.innerHTML = `
+    <div id="game-container" class="content_container">
+        <section id="dealer-hand">
+            <h2 id="dealer-hand-title">Dealer's Hand -- (?)</h2>
+            <div class="hand-cards">
+                ${renderFlippingCard(backCard, "Dealer", 0, false)}
+                ${renderFlippingCard(backCard, "Dealer", 1, false)}
+            </div>
+        </section>
+
+        <section id="player-hand">
+            <h2 id="player-hand-title">Player's Hand -- (?)</h2>
+            <div class="hand-cards">
+                ${renderFlippingCard(backCard, "Player", 0, false)}
+                ${renderFlippingCard(backCard, "Player", 1, false)}
+            </div>
+        </section>
+
+        <section id="game-action-controls" class="no-title">
+            <div id="action-buttons" class="buttons">
+                <input type="number" id="bet-amount" class="bet-input" value="100" min="1" step="1">
+                <button id="play-button" class="btn-primary">Deal cards</button>
+            </div>
+            <div id="game-message-container">    
+                <p id="game-message">Place your bet and click "Deal Cards" to start.</p>
+            </div>
+        </section>
+    </div>
+    `;
+
+
 }
 
 // timing for animations and delays
@@ -207,7 +250,7 @@ function showGame() {
                 <button id="play-again-button" class="btn-primary">Play Again</button>
             </div>
             <div id="game-message-container">    
-                <p id="game-message">Your choice! Hit or stand?</p>
+                <p id="game-message">Your bet: $${betAmount}</p>
             </div>
         </section>
     </div>
@@ -231,11 +274,18 @@ function showGame() {
             addStat("dealer_blackjacks");
             addStat("player_blackjacks");
             addStat("ties");
-            endGame("win-screen", "Both have Blackjack! It's a tie!");
+            winMultiplier = 1;
+            lossMultiplier = 0;
+            endGame("tie-screen", buildResultMessage("tie", "Blackjack push", 0));
         } else {
+            winMultiplier = Math.min(winMultiplier, 2.0);
             addStat("player_blackjacks");
             addStat("wins");
-            endGame("win-screen", "Blackjack! You win!");
+            const netWin = ((betAmount * 2.5) * winMultiplier) - betAmount;
+            addMoney(netWin);
+            endGame("win-screen", buildResultMessage("win", "Blackjack", netWin, winMultiplier));
+            winMultiplier += 0.1;
+            lossMultiplier = 0;
         }
     }
 
@@ -244,8 +294,28 @@ function showGame() {
 
 // Event delegation (works for both screens)
 container.addEventListener("click", (e) => {
-    if (e.target.id === "play-button") {
+    if (e.target.id === "start-play-button") {
         addStat("seen_intro");
+        showPreGame();
+    }
+
+    if (e.target.id === "play-button") {
+        const betInput = document.getElementById("bet-amount");
+        betAmount = parseInt(betInput?.value) || 0;
+        let currentMoney = parseInt(localStorage.getItem("money")) || 0;
+
+        if (betAmount <= 0) {
+            alert("Please enter a valid bet amount.");
+            return;
+        }
+
+        if (betAmount > currentMoney) {
+            alert("You don't have enough money to place that bet.");
+            return;
+        }
+
+        console.log(`Bet placed: $${betAmount}`);
+
         showGame();
     }
 
@@ -275,7 +345,6 @@ container.addEventListener("click", (e) => {
         }
 
         const playerTotal = calculateTotal(gameState.playerCards);
-        const dealerTotal = calculateTotal(gameState.dealerCards);
 
         document.getElementById("player-hand-title").textContent = `Player's Hand -- (${playerTotal})`;
         console.log(playerTotal);
@@ -284,23 +353,41 @@ container.addEventListener("click", (e) => {
 
         let endClass;
         if (isBlackjack) {
-            dealerDrawCards(gameState.dealerCards);
             const dealerBlackjack = checkBlackjack(gameState.dealerCards);
+            dealerDrawCards(gameState.dealerCards);
+            const dealerTotal = calculateTotal(gameState.dealerCards);
             if (dealerTotal > 21) {
+                winMultiplier = Math.min(winMultiplier, 2.0);
                 addStat("dealer_busts");
                 addStat("wins");
-                endGame("win-screen", "Dealer busts! You win!");
+                const netWin = ((betAmount * 2) * winMultiplier) - betAmount;
+                addMoney(netWin);
+                endGame("win-screen", buildResultMessage("win", "Dealer bust", netWin, winMultiplier));
+                winMultiplier += 0.1;
+                lossMultiplier = 0;
             } else if (dealerBlackjack) {
                 addStat("ties");
-                endGame("tie-screen", "Both have 21! It's a tie!");
+                winMultiplier = 1;
+                lossMultiplier = 0;
+                endGame("tie-screen", buildResultMessage("tie", "Blackjack push", 0));
             } else {
+                winMultiplier = Math.min(winMultiplier, 2.0);
                 addStat("wins");
-                endGame("win-screen", "21! You win!");
+                const netWin = ((betAmount * 2) * winMultiplier) - betAmount;
+                addMoney(netWin);
+                endGame("win-screen", buildResultMessage("win", "21", netWin, winMultiplier));
+                winMultiplier += 0.1;
+                lossMultiplier = 0;
             }
         } else if (playerTotal > 21) {
+            lossMultiplier = Math.min(lossMultiplier, 1.0);
             addStat("losses");
             addStat("player_busts");
-            endGame("lose-screen", "bust! You lose!");
+            const netLoss = -betAmount * (1 - lossMultiplier);
+            addMoney(netLoss);
+            endGame("lose-screen", buildResultMessage("loss", "Player bust", netLoss, lossMultiplier));
+            winMultiplier = 1;
+            lossMultiplier += 0.2;
         }
     }
 
@@ -318,18 +405,43 @@ container.addEventListener("click", (e) => {
 
         let endClass;
         if (dealerTotal > 21) {
+            winMultiplier = Math.min(winMultiplier, 2.0);
             addStat("dealer_busts");
             addStat("wins");
-            endGame("win-screen", "Dealer busts! You win!");
-        } else if (playerTotal > dealerTotal) {
-            addStat("wins");
-            endGame("win-screen", "You win!");
+            const netWin = ((betAmount * 2) * winMultiplier) - betAmount;
+            addMoney(netWin);
+            endGame("win-screen", buildResultMessage("win", "Dealer bust", netWin, winMultiplier));
+            winMultiplier += 0.1;
+            lossMultiplier = 0;
         } else if (playerTotal < dealerTotal) {
+            lossMultiplier = Math.min(lossMultiplier, 1.0);
             addStat("losses");
-            endGame("lose-screen", "You lose!");
+            const netLoss = -betAmount * (1 - lossMultiplier);
+            addMoney(netLoss);
+            endGame("lose-screen", buildResultMessage("loss", "Dealer blackjack", netLoss, lossMultiplier));
+            winMultiplier = 1;
+            lossMultiplier += 0.2;
+        } else if (playerTotal > dealerTotal) {
+            winMultiplier = Math.min(winMultiplier, 2.0);
+            addStat("wins");
+            const netWin = ((betAmount * 2) * winMultiplier) - betAmount;
+            addMoney(netWin);
+            endGame("win-screen", buildResultMessage("win", "Higher hand", netWin, winMultiplier));
+            winMultiplier += 0.1;
+            lossMultiplier = 0;
+        } else if (playerTotal < dealerTotal) {
+            lossMultiplier = Math.min(lossMultiplier, 1.0);
+            addStat("losses");
+            const netLoss = -betAmount * (1 - lossMultiplier);
+            addMoney(netLoss);
+            endGame("lose-screen", buildResultMessage("loss", "Dealer higher", netLoss, lossMultiplier));
+            winMultiplier = 1;
+            lossMultiplier += 0.2;
         } else {
             addStat("ties");
-            endGame("tie-screen", "It's a tie!");
+            winMultiplier = 1;
+            lossMultiplier = 0;
+            endGame("tie-screen", buildResultMessage("tie", "Push", 0));
         }
     }
     
@@ -347,7 +459,7 @@ container.addEventListener("click", (e) => {
         standBtn.disabled = false;
         
         resetCards();
-        showGame();
+        showPreGame();
     }
 });
 
@@ -399,6 +511,13 @@ function revealDealerCards() {
 function endRound() {
     addStat("games_played");
 
+    if (lossMultiplier > 0.8) {
+        lossMultiplier = 0.8;
+    }
+    if (winMultiplier > 1.9) {
+        winMultiplier = 1.9;
+    }
+
     const playAgain = document.getElementById("play-again-button");
     const hitBtn = document.getElementById("hit-button");
     const standBtn = document.getElementById("stand-button");
@@ -418,6 +537,21 @@ function renderGameResult(screen) {
     gameControls.classList.add(screen);
 }
 
+function formatMoney(amount) {
+    const sign = amount >= 0 ? "+" : "-";
+    return `${sign}$${Math.abs(amount)}`;
+}
+
+function buildResultMessage(status, detail, netAmount, multiplier = null) {
+    const segments = [`${status.toUpperCase()} - ${detail}`, `Result: ${formatMoney(netAmount)}`];
+    if (status === "win" && multiplier != null) {
+        segments.push(`Win Multiplier: ${multiplier.toFixed(2)}x`);
+    } else if (status === "loss" && multiplier != null) {
+        segments.push(`Lose Multiplier: ${multiplier.toFixed(2)}x`);
+    }
+    return segments.join(" | ");
+}
+
 function endGame(endClass, message) {
     const playerTotal = calculateTotal(gameState.playerCards);
     const dealerTotal = calculateTotal(gameState.dealerCards);
@@ -435,9 +569,10 @@ async function init() {
     seenIntro = await getSeenIntro();
 
     if (Number(seenIntro) === 0) {
+        localStorage.setItem("seenIntro", 1);
         showIntro();
     } else {
-        showGame();
+        showPreGame();
     }
 }
 

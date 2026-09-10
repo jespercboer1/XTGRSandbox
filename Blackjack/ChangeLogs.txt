@@ -54,3 +54,11 @@
 - Updated Leaderboard style
 - Added rules page content
 - Added about page content
+
+04/07/2026
+- Added bet system before you play
+- Added money system, you can earn money by playing an winning
+- Added win and loss streaks to make players earn more over time
+- Updated status messages
+- Changed default money to 1000
+- Changing accounts updated money immediately
