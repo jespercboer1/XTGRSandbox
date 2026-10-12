@@ -1,0 +1,14 @@
+11/10/2026
+- added animation to number display
+- made score and combinations display wait for number animation
+- made list of all combinations initialize once, instead of every time you click show all combinations
+- created ChangeLog
+
+Before 11/10/2026
+- made roll button
+- added a randomizer that gives back 6 numbers
+- added a bunch of number combination checkers
+- added a score calculator
+- added a display for everything
+- made a button what displays all possible combinations
+- applied O.O.S.D.D. to the project

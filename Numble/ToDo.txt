@@ -1,0 +1,15 @@
+Must:
+- combinations moeten om en om worden gedisplayed
+- score moet per gedisplayede combination omhoog gaan
+- CSS
+
+Should:
+- account login en registration
+- Safe account statistics
+- 
+
+Could:
+- 
+
+I'm bored:
+- 
