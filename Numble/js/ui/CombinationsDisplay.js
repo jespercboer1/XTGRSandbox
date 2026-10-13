@@ -1,15 +1,9 @@
 ﻿export class CombinationsDisplay {
-    show(combinations) {
-        const element = document.getElementById("combinations");
+    show(combination) {
+        const item = document.createElement("div");
 
-        element.innerHTML = "";
+        item.textContent = `${combination.title} (+${combination.points})`;
 
-        for (const combination of combinations) {
-            const item = document.createElement("div");
-
-            item.textContent = `${combination.title} (+${combination.points})`;
-
-            element.appendChild(item);
-        }
+        document.getElementById("combinations").appendChild(item);
     }
 }

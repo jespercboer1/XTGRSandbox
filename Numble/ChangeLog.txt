@@ -1,3 +1,9 @@
+13/10/2026
+- updated styles (color pallet + header design)
+
+12/10/2026
+- Changed the way the display works to setup for display animations
+
 11/10/2026
 - added animation to number display
 - made score and combinations display wait for number animation

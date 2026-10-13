@@ -1,18 +1,16 @@
 import { Game } from "./game/Game.js";
 import { NumberDisplay } from "./ui/NumberDisplay.js";
-import { ScoreDisplay } from "./ui/ScoreDisplay.js";
-import { CombinationsDisplay } from "./ui/CombinationsDisplay.js";
+import { Result_Viewer } from "./game/ResultViewer.js";
 import { CombinationsRegistry } from "./combinations/CombinationsRegistry.js";
 import { AllCombinationsListDisplay } from "./ui/AllCombinationsListDisplay.js";
 import { ClearDisplay } from "./ui/ClearDisplay.js";
 
 const game = new Game();
 
-const clearDisplay = new ClearDisplay();
+const resultViewer = new Result_Viewer();
 
+const clearDisplay = new ClearDisplay();
 const numberDisplay = new NumberDisplay();
-const scoreDisplay = new ScoreDisplay();
-const combinationsDisplay = new CombinationsDisplay();
 const allCombinationsListDisplay = new AllCombinationsListDisplay(CombinationsRegistry);
 
 document.getElementById("rollNumbers").onclick = async () => {
@@ -21,8 +19,7 @@ document.getElementById("rollNumbers").onclick = async () => {
     const result = game.roll();
     
     await numberDisplay.show(result.numbers);
-    scoreDisplay.show(result.score);
-    combinationsDisplay.show(result.combinations);
+    resultViewer.showResult(result.combinations);
     document.getElementById("rollNumbers").disabled = false;
 };
 
